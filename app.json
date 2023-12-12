@@ -3,7 +3,6 @@
     "name": "app-tecno-tienda",
     "slug": "app-tecno-tienda",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
