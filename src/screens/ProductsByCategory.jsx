@@ -1,38 +1,45 @@
-import { FlatList, StyleSheet, Text, View } from "react-native"
-import productsData from '../data/products_data.json'
-import CategoryItem from '../components/categoryItem/CategoryItem'
-import ProductItem from '../components/productItem/ProductItem'
-
-import { colors } from "../global/colors"
-import Header from "../components/header/Header"
 import { useState, useEffect } from "react"
+import { FlatList, StyleSheet, Text, View } from "react-native"
+import { ProductItem } from "../components"
+import { Searcher } from "../components"
+import { colors } from "../global/colors"
 
-const ProductsByCategory = ({category, onSelectCategory, onSelectedProductId}) => {
-    
-    const [ productByCategory, setProductsByCategory ] = useState()
-    
+import tiendaData from '../data/tecnotienda_prodData.json'
+
+const ProductsByCategory = ({navigation, route}) => {
+
+    const { title } = route.params
+
+    const [ productsToShow, setProductsToShow ] = useState([])
+    const [ search, setSearch ] = useState('')
+
     useEffect(
         ()=>{
-            const filteredProducts = productsData.filter(product=>product.category === category)
-            setProductsByCategory(filteredProducts)
+            const filteredProducts = tiendaData.filter(product=>product.category === title)
+            const searchedProducts = filteredProducts.filter(product=>product.name.toLowerCase().includes(search.toLowerCase()))
+            setProductsToShow(searchedProducts)
         },
-        [category]
+        [title, search]
     )
+
+    const onSearch = (search) => {
+        setSearch(search)
+    }
     
     const renderProductItem = ({item}) => (
         <View style={styles.container}>
-            <ProductItem item={item} onSelectedProductId={onSelectedProductId}/>     
+            <ProductItem navigation={navigation} {...item}/>     
         </View>
     )
 
-    //Sacar el onSelectCategory pasado por props al header y eliminar la prop recibida onSelectCategory
-	return (
+    return (
         
         <View>
-            <Header onSelectCategory={onSelectCategory}/>
-            <Text style={styles.title}>Productos</Text>
+            <Searcher onSearchHandler={onSearch}/>
+            <Text style={styles.title}>Categoría: {title}</Text>
+            {productsToShow.length === 0 && <View><Text style={styles.message}>Sin productos que mostrar</Text></View>}
             <FlatList
-                data={productByCategory}
+                data={productsToShow}
                 renderItem={renderProductItem}
                 keyExtractor={item=>item.id}            
             />
@@ -54,4 +61,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: colors.ligthBlue,
     },
+
+    message:{
+        textAlign: 'center',
+        marginTop: 180,
+        color: colors.darkBlue,
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
 })

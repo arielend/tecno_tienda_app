@@ -1,38 +1,189 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import productsData from '../data/products_data.json'
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, ScrollView, Image, Pressable } from "react-native"
+import { Card, Skeleton } from "../components"
+import { colors } from "../global/colors"
+import tiendaProducts from '../data/tecnotienda_prodData.json'
 
-import Header from '../components/header/Header'
+const ProductDetail = ({ route }) => {
 
+    const [ productSelected, setProductSelected ] = useState({})
+    const [ isLoading, setIsLoading ] = useState(true)
+    const [ favorite, setFavorite ] = useState(false)
 
-const ProductDetail = ({productIdSelected, onSelectCategory}) => {
+    const {id} = route.params
 
-    const product = productsData.find(item=>item.id === productIdSelected)
+    const favoriteHandler = () => {
+        setFavorite(!favorite)
+    }
 
-    return (
-        <View>
-            <Header onSelectCategory={onSelectCategory}/>
-            <Text>Detalles del Producto</Text>
-            <Text>{product.title}</Text>
-            <Text>Precio: U$D {product.price}</Text>
-            <Image
+    useEffect(()=>{
+        const product = tiendaProducts.find((item) => item.id === id);
+        setProductSelected(product)
+        setIsLoading(false)
+    }, [id])
+
+    {
+        if(isLoading){
+            return (
+            <Skeleton />
+            )
+        }
+        else{
+            return(
+                <ScrollView>
+
+            <Card style={styles.container}>
+                <Text style={styles.title}>{productSelected.name}</Text>
+
+                <Pressable style={styles.sharePress} onPress={null} hitSlop={20}>
+                    <Image
+                        style={styles.shareIcon}
+                        resizeMode="cover"
+                        source={{ uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2Fshare_icon3.webp?alt=media&token=487570dd-3ad6-41cd-864d-17150933d467" }}
+                    />
+                </Pressable>
+
+                <Pressable  style={styles.favPress} onPress={()=>favoriteHandler()} hitSlop={20}>
+                    <Image
+                    style={styles.favIcon}
+                    resizeMode="cover"
+                    source={favorite ? 
+                        {uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavAdded_icon3.webp?alt=media&token=879524b2-7346-4f9d-a727-4e454812aaa9" }
+                        :
+                        {uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavRemoved_icon3.webp?alt=media&token=0f649a31-6890-4603-b807-7024ef4516f3" }
+                        }/>
+                </Pressable>
+                    
+
+                <Image
                     style={styles.productImage}
                     resizeMode="cover"
-                    source={{uri:product.thumbnail}}
+                    source={{ uri: productSelected.img }}
                 />
-        </View>
-    )
+
+                <Text>{productSelected.description}</Text>
+                <Text style={styles.price}>Precio: $ {productSelected.price}</Text>
+                <Pressable onPress={()=>{}} style={styles.buyButton}>
+                    <Text>Comprar</Text>
+                </Pressable>
+                <Text style={styles.stock}>Stock: {productSelected.stock} u.</Text>
+            </Card>
+
+        </ScrollView>
+            )
+        }
+    }
+
+    // return (
+    //     <ScrollView>
+
+    //         <Card style={styles.container}>
+    //             <Text style={styles.title}>{productSelected.name}</Text>
+
+    //             <Pressable style={styles.sharePress} onPress={null} hitSlop={20}>
+    //                 <Image
+    //                     style={styles.shareIcon}
+    //                     resizeMode="cover"
+    //                     source={{ uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2Fshare_icon3.webp?alt=media&token=487570dd-3ad6-41cd-864d-17150933d467" }}
+    //                 />
+    //             </Pressable>
+
+    //             <Pressable  style={styles.favPress} onPress={()=>favoriteHandler()} hitSlop={20}>
+    //                 <Image
+    //                 style={styles.favIcon}
+    //                 resizeMode="cover"
+    //                 source={favorite ? 
+    //                     {uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavAdded_icon3.webp?alt=media&token=879524b2-7346-4f9d-a727-4e454812aaa9" }
+    //                     :
+    //                     {uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavRemoved_icon3.webp?alt=media&token=0f649a31-6890-4603-b807-7024ef4516f3" }
+    //                     }/>
+    //             </Pressable>
+                    
+
+    //             <Image
+    //                 style={styles.productImage}
+    //                 resizeMode="cover"
+    //                 source={{ uri: productSelected.img }}
+    //             />
+
+    //             <Text>{productSelected.description}</Text>
+    //             <Text style={styles.price}>Precio: $ {productSelected.price}</Text>
+    //             <Pressable onPress={()=>{}} style={styles.buyButton}>
+    //                 <Text>Comprar</Text>
+    //             </Pressable>
+    //             <Text style={styles.stock}>Stock: {productSelected.stock} u.</Text>
+    //         </Card>
+
+    //     </ScrollView>
+    // )
 }
 
-export default ProductDetail
+export default ProductDetail;
 
 const styles = StyleSheet.create({
-
     container: {
-        fontSize: 14,
+        padding: 20,
+        margin: 20,
+        backgroundColor: 'white',
+        alignItems: 'center',        
+        rowGap: 15,
     },
 
-    productImage:{
-        width: 200,
-        height: 200,
-    }
-})
+    title:{
+        fontWeight: 'bold',
+        marginBottom: 30
+    },
+
+    price:{
+        color: colors.orange,
+        fontWeight: 'bold',
+    },
+
+    buyButton:{
+        backgroundColor: colors.ligthGray,
+        height: 38,
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        borderColor: colors.orange,
+        borderWidth: 1,
+    },
+
+    stock:{
+        color: colors.yellow
+    },
+
+    sharePress:{
+        position: 'absolute',
+        top: 85,
+        left: 30,
+        width: 40,
+        height: 40,
+        zIndex: 1
+    },
+
+    shareIcon:{
+        width: 35,
+        height: 35,        
+    },
+
+    favPress:{
+        position: 'absolute',
+        top: 85,
+        right: 30,
+        width: 40,
+        height: 40,
+        zIndex: 1
+    },
+
+    favIcon:{
+        width: 35,
+        height: 35
+    },
+
+    productImage: {
+        width: 350,
+        height: 350,
+    },
+});

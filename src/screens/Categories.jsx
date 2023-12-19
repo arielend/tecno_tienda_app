@@ -1,25 +1,26 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import { colors } from '../global/colors';
+import { useState } from 'react'
+import { colors } from '../global/colors'
+import { CategoryItem } from '../components'
+import categoriesTienda from '../data/tecnotienda_catData.json'
 
-import categoriesMock from '../data/categories_data.json'
-import Header from "../components/header/Header"
-import CategoryItem from '../components/categoryItem/CategoryItem';
+const Categories = ({navigation}) => {
 
-const Categories = ({onSelectCategory}) => {
+    const [ categories, setCategories ] = useState(categoriesTienda)
 
     const renderCategoryItems = ({item}) => (
-        <CategoryItem category={item} onSelectCategory={onSelectCategory}/>
+        <View>
+            <CategoryItem navigation={navigation} {...item}/>
+        </View>
     )
 
-    //Sacar el onSelectCategory pasado por props al header
     return(
         <View style={styles.container}>
-            <Header onSelectCategory={onSelectCategory}/>
             <Text style={styles.title}>Categorías</Text>
             <FlatList
-                data={categoriesMock}
+                data={categories}
                 renderItem={renderCategoryItems}
-                keyExtractor={item=>item}
+                keyExtractor={item=>item.id}
             />            
         </View>
     )
