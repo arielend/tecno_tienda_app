@@ -1,18 +1,18 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import { useState } from 'react'
 import { colors } from '../global/colors'
 import { CategoryItem } from '../components'
-import categoriesTienda from '../data/tecnotienda_catData.json'
+
+import { useSelector } from 'react-redux'
 
 const Categories = ({navigation}) => {
 
-    const [ categories, setCategories ] = useState(categoriesTienda)
+    const categories = useSelector(state=>state.shopReducer.categories)
 
     const renderCategoryItems = ({item}) => (
         <View>
             <CategoryItem navigation={navigation} {...item}/>
         </View>
-    )
+    )   
 
     return(
         <View style={styles.container}>
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 
     container:{
         backgroundColor: '#FFF',
+        marginBottom: 45
     },
 
     title:{

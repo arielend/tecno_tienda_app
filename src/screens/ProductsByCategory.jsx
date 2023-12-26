@@ -1,25 +1,24 @@
 import { useState, useEffect } from "react"
 import { FlatList, StyleSheet, Text, View } from "react-native"
-import { ProductItem } from "../components"
-import { Searcher } from "../components"
+import { ProductItem, Searcher } from "../components"
 import { colors } from "../global/colors"
 
-import tiendaData from '../data/tecnotienda_prodData.json'
+import { useSelector } from "react-redux"
 
-const ProductsByCategory = ({navigation, route}) => {
+const ProductsByCategory = ({navigation}) => {
 
-    const { title } = route.params
-
+    const categoria = useSelector(state=>state.shopReducer.categorySelected)
+    const productsByCategory = useSelector(state=>state.shopReducer.productsFilteredByCategory)
+    
     const [ productsToShow, setProductsToShow ] = useState([])
     const [ search, setSearch ] = useState('')
 
     useEffect(
         ()=>{
-            const filteredProducts = tiendaData.filter(product=>product.category === title)
-            const searchedProducts = filteredProducts.filter(product=>product.name.toLowerCase().includes(search.toLowerCase()))
+            const searchedProducts = productsByCategory.filter(p =>p.name.toLowerCase().includes(search.toLowerCase()))
             setProductsToShow(searchedProducts)
         },
-        [title, search]
+        [search]
     )
 
     const onSearch = (search) => {
@@ -36,7 +35,7 @@ const ProductsByCategory = ({navigation, route}) => {
         
         <View>
             <Searcher onSearchHandler={onSearch}/>
-            <Text style={styles.title}>Categoría: {title}</Text>
+            <Text style={styles.title}>Categoría: {categoria}</Text>
             {productsToShow.length === 0 && <View><Text style={styles.message}>Sin productos que mostrar</Text></View>}
             <FlatList
                 data={productsToShow}
