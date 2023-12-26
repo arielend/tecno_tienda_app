@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "userId": 17,
+        "orderDate": 1679869276580,
+        "orderStatus": "created",
+        "payStatus": "pending",
+        "orderProducts": [
+
+            {
+                "id": 2,
+                "shortName": "AMD Ryzen 7",
+                "price": 350000,
+                "quantity": 1,
+                "subtotal": 350000
+            },
+
+            {
+                "id": 5,
+                "shortName": "Asus ROG Strix",
+                "price": 379000,
+                "quantity": 1,
+                "subtotal": 379000
+            },
+
+            {
+                "id": 16,
+                "shortName": "Kingston Fury 16GB pack",
+                "price": 65000,
+                "quantity": 2,
+                "subtotal": 130000
+            }
+
+        ],
+        "orderTotal": 859000
+    },
+    {
+        "id": 2,
+        "userId": 17,
+        "orderDate": 1679999876980,
+        "orderStatus": "created",
+        "payStatus": "confirmed",
+        "orderProducts": [
+
+            {
+                "id": 11,
+                "shortName": "AsRock Radeon RX 6500 XT",
+                "price": 229000,
+                "quantity": 1,
+                "subtotal": 229000
+            }
+
+        ],
+        "orderTotal": 229000
+    }
+]

@@ -7,12 +7,12 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop: 45,
         paddingBottom: 15,
-        paddingHorizontal: 15,
+        paddingHorizontal: 15,        
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: colors.ligthGray,
         borderBottomColor: colors.orange,
-        borderBottomWidth: 2,
+        borderBottomWidth: 2        
     },
 
     headerIcons: {
@@ -22,6 +22,14 @@ export const styles = StyleSheet.create({
 
     headerLogo: {
         height: 31.2,
-        width: 230,
+        width: 230
+    },
+
+    home:{
+    },
+
+    back:{        
     }
+
+
 })

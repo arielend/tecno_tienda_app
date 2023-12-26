@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { NavigationContainer } from "@react-navigation/native"
+import { BottomTabBar } from "@react-navigation/bottom-tabs"
  
 import Categories from "../screens/Categories"
 import ProductDetail from "../screens/ProductDetail"
@@ -9,9 +9,9 @@ import { Header } from "../components"
 
 const Stack = createNativeStackNavigator()
 
-const Navigator = () => {
+const ShopNavigator = () => {
     return (
-        <NavigationContainer>
+        
 
             <Stack.Navigator
                 initialRouteName="categories"
@@ -37,10 +37,8 @@ const Navigator = () => {
                     component={ProductDetail}
                 />
 
-            </Stack.Navigator>
-
-        </NavigationContainer>
+            </Stack.Navigator>        
     )
 }
 
-export default Navigator;
+export default ShopNavigator;

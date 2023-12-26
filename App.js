@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
 import { Skeleton } from './src/components'
+import TabNavigator from './src/navigation/TabNavigator'
 
-import Navigator from './src/navigation/Navigator'
+import { Provider } from 'react-redux'
+import store from './src/store'
 
 export default function App() {
 
@@ -14,12 +16,14 @@ export default function App() {
 	})
 
 	if (!fontLoaded) {
-		return <Skeleton/>
+		return <Skeleton />
 	}
 
 	return (
 		<>
-			<Navigator />
+			<Provider store={store}>
+				<TabNavigator />
+			</Provider>
 			<StatusBar />
 		</>
 	)
