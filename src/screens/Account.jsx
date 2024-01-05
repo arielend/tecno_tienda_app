@@ -3,7 +3,7 @@ import { colors } from "../global/colors"
 
 const Account = () => {
     return(
-        <View>
+        <View style={styles.container}>
             <Text style={styles.title}>Mi Cuenta</Text>        
         </View>
     )
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 
     container:{
         backgroundColor: '#FFF',
-        marginBottom: 70,
+        height: '100%'
     },
 
     title:{

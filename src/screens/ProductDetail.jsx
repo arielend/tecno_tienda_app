@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, ScrollView, Image, Pressable } from "react-native";
-import { Skeleton } from "../components";
+import { Skeleton, Carousel } from "../components";
 import Card from "../components/card/Card";
 import { colors } from "../global/colors";
 
@@ -60,11 +60,7 @@ const ProductDetail = () => {
                             />
                         </Pressable>
 
-                        <Image
-                            style={styles.productImage}
-                            resizeMode="cover"
-                            source={{ uri: productSelected.img }}
-                        />
+                        <Carousel images={productSelected.images}/>
 
                         <Text>{productSelected.description}</Text>
                         <Text style={styles.price}>

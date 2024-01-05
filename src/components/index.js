@@ -1,3 +1,4 @@
+export { default as Carousel } from './carousel'
 export { default as CartItem } from './cartItem'
 export { default as CategoryItem } from './categoryItem'
 export { default as Header } from './header'

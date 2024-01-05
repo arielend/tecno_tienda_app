@@ -26,16 +26,16 @@ const ProductsByCategory = ({navigation}) => {
     }
     
     const renderProductItem = ({item}) => (
-        <View style={styles.container}>
+        <View>
             <ProductItem navigation={navigation} {...item}/>     
         </View>
     )
 
     return (
         
-        <View>
-            <Searcher onSearchHandler={onSearch}/>
+        <View style={styles.container}>
             <Text style={styles.title}>Categoría: {categoria}</Text>
+            <Searcher onSearchHandler={onSearch}/>
             {productsToShow.length === 0 && <View><Text style={styles.message}>Sin productos que mostrar</Text></View>}
             <FlatList
                 data={productsToShow}
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
 
     container: {
         backgroundColor: 'white',
+        height: '100%'
     },
 
     title:{
