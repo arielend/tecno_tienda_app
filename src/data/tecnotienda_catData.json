@@ -33,5 +33,10 @@
         "id": 7,
         "title": "keyboards",
         "img": "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2Fkeyboard_icon2.png?alt=media&token=68fbf674-8694-4c60-938f-412aa6f22b59"
+    },
+    {
+        "id": 8,
+        "title": "chairs",
+        "img": "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2Fchair_icon2.webp?alt=media&token=4e172445-1620-4b6c-b8d8-e6a955f98da7"
     }
 ]

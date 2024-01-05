@@ -42,14 +42,14 @@ const Searcher = ({onSearchHandler}) => {
             <Image
                 style={styles.searchIcons}
                 resizeMode="cover"
-                source={require("./assets/search_icon3.png")}
+                source={require("./assets/search_icon4.png")}
             />
             </Pressable>
             <Pressable onPress={()=>clearSearch()}>
             <Image
                 style={styles.searchIcons}
                 resizeMode="cover"
-                source={require("./assets/x_icon3.png")}
+                source={require("./assets/x_icon4.png")}
             />
             </Pressable>
 
