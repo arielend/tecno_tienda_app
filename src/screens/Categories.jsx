@@ -1,12 +1,11 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { colors } from '../global/colors'
 import { CategoryItem } from '../components'
-
-import { useSelector } from 'react-redux'
+import { useGetCategoriesQuery } from '../services/shopServices'
 
 const Categories = ({navigation}) => {
-
-    const categories = useSelector(state=>state.shopReducer.categories)
+    
+    const { data: categories } = useGetCategoriesQuery()
 
     const renderCategoryItems = ({item}) => (
         <View>

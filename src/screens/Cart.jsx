@@ -1,41 +1,37 @@
 import { StyleSheet, FlatList, Text, View, Pressable } from "react-native"
 import { colors } from "../global/colors"
-import cartData from '../data/tecnotienda_cartData.json'
 import { CartItem } from "../components"
-import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
 const Cart = () => {
 
-    const [ totalCompra, setTotalCompra ] = useState()
+    const cartItems = useSelector(state => state.cartReducer.items)
+    console.log(cartItems)
+    console.log("El carrito tiene ", cartItems.length, " elementos")
 
-    useEffect(()=>{
-        const total = cartData.reduce((accumulator, currentItem)=>(
-            accumulator+=currentItem.price*currentItem.quantity
-        ),0)
-        setTotalCompra(total)
-    },[])
-    
+    const totalBudget = useSelector(state => state.cartReducer.totalBudget)
+
     const renderCartItems = ({item}) => {
-        
+
         return(
             <View>
                 <CartItem {...item}/>
             </View>
         )
     }
-
+    
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Mi Carrito</Text>
 
             <FlatList
-                data={cartData}
+                data={cartItems}
                 renderItem={renderCartItems}
                 keyExtractor={(item) => item.id}
             />
 
             <View style={styles.buySection}>
-                <Text style={styles.total}>Mi compra: $ {totalCompra}</Text>
+                <Text style={styles.total}>Mi compra: $ {totalBudget}</Text>
                 <Pressable 
                 style={({pressed})=>[
                     styles.button,

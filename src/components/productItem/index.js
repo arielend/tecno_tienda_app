@@ -5,7 +5,7 @@ import Card from '../../components/card/Card'
 import { useDispatch } from "react-redux"
 import { setProductIdSelected, setProductSelectedById } from "../../features/shopSlice"
 
-const ProductItem = ({navigation, id, name, price, img}) => {
+const ProductItem = ({navigation, id, name, price, thumbnail}) => {
 
     const dispatch = useDispatch()
 
@@ -24,7 +24,7 @@ const ProductItem = ({navigation, id, name, price, img}) => {
                 <Image
                     style={styles.productImage}
                     resizeMode="cover"
-                    source={{uri:img}}
+                    source={{uri:thumbnail}}
                 />
             </View>            
         </Card>

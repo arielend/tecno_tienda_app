@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, ScrollView, Image, Pressable } from "react-native";
-import { Skeleton, Carousel } from "../components";
-import Card from "../components/card/Card";
-import { colors } from "../global/colors";
+import { useEffect, useState } from "react"
+import { StyleSheet, Text, ScrollView, Image, Pressable } from "react-native"
+import { Skeleton, Carousel } from "../components"
+import Card from "../components/card/Card"
+import { colors } from "../global/colors"
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"
+import { addItemToCart } from "../features/cartSlice"
 
 const ProductDetail = () => {
+
+    const dispatch = useDispatch()
+
     const productSelected = useSelector(
         (state) => state.shopReducer.productSelectedById
     );
@@ -21,6 +25,13 @@ const ProductDetail = () => {
     useEffect(() => {
         setIsLoading(false);
     }, [productSelected.id]);
+
+    const onAddToCart = () => {
+        dispatch(addItemToCart({
+            ...productSelected,
+            quantity: 1
+        }))
+    }
 
     {
         if (isLoading) {
@@ -67,7 +78,7 @@ const ProductDetail = () => {
                             Precio: $ {productSelected.price}
                         </Text>
                         <Pressable
-                            onPress={() => {}}
+                            onPress={onAddToCart}
                             style={({pressed})=>[
                                 styles.button,
                                 pressed && styles.buttonPressed
