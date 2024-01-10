@@ -4,10 +4,11 @@ import { useState } from "react"
 
 const Input = ({label, onChange, error = '', isSecure = false}) => {
 
-    const [ input, setInput ] = useState('')
+    const [ input, setInput ] = useState()
 
-    const onChangeTextHandler = () => {
-
+    const onChangeTextHandler = (text) => {
+        setInput(text)
+        onChange(text)
     }
 
     return(
@@ -16,7 +17,7 @@ const Input = ({label, onChange, error = '', isSecure = false}) => {
             <TextInput
                 style={styles.input}
                 value={input}
-                onChange={()=>{}}
+                onChange={onChangeTextHandler}
                 secureTextEntry={isSecure}            
             />
             {

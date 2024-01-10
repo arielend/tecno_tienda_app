@@ -1,35 +1,48 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { colors } from '../global/colors'
 import { Input } from '../components'
+import { useState } from 'react'
+import { useSignUpMutation } from '../services/authService'
 
 const SignUp = ({navigation}) => {
+
+    const [ email, setEmail ] = useState('')
+    const [ password, setPassword ] = useState('')
+    const [ passwordConfirm, setPasswordConfirm ] = useState('')
+
+    const [ triggerSignUp, result ] = useSignUpMutation()
+
+    const onSignUpHandler = () => {
+        triggerSignUp({email, password})
+    }
+
     return (
         <View style={styles.signupContainer}>
 
             <View style={styles.signupForm}>
                 <Input
                     label={'Correo electrónico: '}
-                    onChange={null}
+                    onChange={setEmail}
                     error=''
                     isSecure={false}
                 />
 
                 <Input 
                     label={'Contraseña: '}
-                    onChange={null}
+                    onChange={setPassword}
                     error=''
                     isSecure={true} 
                 />
 
                 <Input 
                     label={'Confirmar contraseña: '}
-                    onChange={null}
+                    onChange={setPasswordConfirm}
                     error=''
                     isSecure={true} 
                 />
 
                 <Pressable
-                    onPress={() => {}}
+                    onPress={onSignUpHandler}
                     style={({ pressed }) => [
                         styles.button,
                         pressed && styles.buttonPressed,
