@@ -4,16 +4,15 @@ import { CategoryItem } from '../components'
 import { useGetCategoriesQuery } from '../services/shopServices'
 
 const Categories = ({navigation}) => {
-    
-    const { data: categories } = useGetCategoriesQuery()
+
+    const { data: categories, isLoading, error } = useGetCategoriesQuery()
 
     const renderCategoryItems = ({item}) => (
-        <View>
-            <CategoryItem navigation={navigation} {...item}/>
-        </View>
+        <CategoryItem navigation={navigation} {...item}/>        
     )   
 
     return(
+            
         <View style={styles.container}>
             <Text style={styles.title}>Categorías</Text>
             <FlatList
@@ -22,6 +21,7 @@ const Categories = ({navigation}) => {
                 keyExtractor={item=>item.id}
             />            
         </View>
+        
     )
 }
 

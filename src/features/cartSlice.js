@@ -9,8 +9,9 @@ export const cartSlice = createSlice({
         items: []
     },
     reducers:{
+
         addItemToCart: (state, action) => {
-            const isInCart = state.items.find(i => i.id === action.payload.id)
+            const isInCart = state.items.find(item => item.id === action.payload.id)
             if(!isInCart){
                 state.items.push(action.payload)
                 const total = state.items.reduce(
@@ -31,7 +32,7 @@ export const cartSlice = createSlice({
                     return item
                 })
                 const total = itemsUpdated.reduce(
-                    (acc, current) => acc += current.price*current.quantity,0
+                    (acc, current) => acc += current.price*current.quantity, 0
                 )
                 state.totalBudget = total
                 state = {
@@ -40,11 +41,10 @@ export const cartSlice = createSlice({
                     totalBudget: total,
                     lastUpdate: Date.now().toLocaleString()
                 }                
-            }
-            console.log(`El estado del carrito en cartSlice, luego de agregar tiene ${state.items.length} elementos`);
+            }            
         },
+
         removeItemFromCart: (state, action) =>{
-            console.log("Hay que eliminar el item con id", action.payload);
             const itemsUpdated = state.items.filter(i => i.id !== action.payload)
             const total = itemsUpdated.reduce(
                 (acc, current) => acc += current.price*current.quantity, 0
@@ -56,10 +56,11 @@ export const cartSlice = createSlice({
                 totalBudget: total,
                 lastUpdate: Date.now().toLocaleString()
             }
-            console.log(`El estado del carrito en cartSlice, luego de eliminar tiene ${state.items.length} elementos`);
         },
+
         clearCart: (state) =>{
-            state.items = []
+            state.items = [],
+            state.totalBudget = 0
         }
     }
 })

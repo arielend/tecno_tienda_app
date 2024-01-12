@@ -1,22 +1,26 @@
-import { useEffect, useState } from "react"
-import { StyleSheet, Text, ScrollView, Image, Pressable } from "react-native"
-import { Skeleton, Carousel } from "../components"
-import Card from "../components/card/Card"
-import { colors } from "../global/colors"
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, ScrollView, Image, Pressable } from "react-native";
+import { Skeleton, Carousel, CustomModal } from "../components";
+import Card from "../components/card/Card";
+import { colors } from "../global/colors";
 
-import { useSelector, useDispatch } from "react-redux"
-import { addItemToCart } from "../features/cartSlice"
+import { useSelector, useDispatch } from "react-redux";
+import { addItemToCart } from "../features/cartSlice";
 
-const ProductDetail = () => {
-
-    const dispatch = useDispatch()
+const ProductDetail = ({ navigation }) => {
+    const dispatch = useDispatch();
 
     const productSelected = useSelector(
         (state) => state.shopReducer.productSelectedById
     );
 
+    const [modalVisible, setModalVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [favorite, setFavorite] = useState(false);
+
+    const launchModal = () => {
+        setModalVisible(!modalVisible);
+    };
 
     const favoriteHandler = () => {
         setFavorite(!favorite);
@@ -27,69 +31,89 @@ const ProductDetail = () => {
     }, [productSelected.id]);
 
     const onAddToCart = () => {
-        dispatch(addItemToCart({
-            ...productSelected,
-            quantity: 1
-        }))
-    }
+        dispatch(
+            addItemToCart({
+                ...productSelected,
+                quantity: 1,
+            })
+        );
+        setModalVisible(!modalVisible);
+        navigation.navigate("CartStack", { Screen: "Cart" });
+    };
 
     {
         if (isLoading) {
             return <Skeleton />;
         } else {
             return (
-                <ScrollView>
-                    <Card style={styles.container}>
-                        <Text style={styles.title}>{productSelected.name}</Text>
+                <>
+                    <ScrollView>
+                        <Card style={styles.container}>
+                            <Text style={styles.title}>
+                                {productSelected.name}
+                            </Text>
 
-                        <Pressable
-                            style={styles.sharePress}
-                            onPress={null}
-                            hitSlop={20}
-                        >
-                            <Image
-                                style={styles.shareIcon}
-                                resizeMode="cover"
-                                source={{
-                                    uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2Fshare_icon3.webp?alt=media&token=487570dd-3ad6-41cd-864d-17150933d467",
-                                }}
-                            />
-                        </Pressable>
+                            <Pressable
+                                style={styles.sharePress}
+                                onPress={null}
+                                hitSlop={20}
+                            >
+                                <Image
+                                    style={styles.shareIcon}
+                                    resizeMode="cover"
+                                    source={{
+                                        uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2Fshare_icon3.webp?alt=media&token=487570dd-3ad6-41cd-864d-17150933d467",
+                                    }}
+                                />
+                            </Pressable>
 
-                        <Pressable
-                            style={styles.favPress}
-                            onPress={() => favoriteHandler()}
-                            hitSlop={20}
-                        >
-                            <Image
-                                style={styles.favIcon}
-                                resizeMode="cover"
-                                source={
-                                    favorite ? {uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavAdded_icon3.webp?alt=media&token=879524b2-7346-4f9d-a727-4e454812aaa9"}
-                                    : {uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavRemoved_icon3.webp?alt=media&token=0f649a31-6890-4603-b807-7024ef4516f3"}
-                                }
-                            />
-                        </Pressable>
+                            <Pressable
+                                style={styles.favPress}
+                                onPress={() => favoriteHandler()}
+                                hitSlop={20}
+                            >
+                                <Image
+                                    style={styles.favIcon}
+                                    resizeMode="cover"
+                                    source={
+                                        favorite
+                                            ? { uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavAdded_icon3.webp?alt=media&token=879524b2-7346-4f9d-a727-4e454812aaa9",}
+                                            : { uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavRemoved_icon3.webp?alt=media&token=0f649a31-6890-4603-b807-7024ef4516f3",}
+                                    }
+                                />
+                            </Pressable>
 
-                        <Carousel images={productSelected.images}/>
+                            <Carousel images={productSelected.images} />
 
-                        <Text>{productSelected.description}</Text>
-                        <Text style={styles.price}>
-                            Precio: $ {productSelected.price}
-                        </Text>
-                        <Pressable
-                            onPress={onAddToCart}
-                            style={({pressed})=>[
-                                styles.button,
-                                pressed && styles.buttonPressed
-                            ]}>
-                            <Text>Agregar al carrito</Text>
-                        </Pressable>
-                        <Text style={styles.stock}>
-                            Stock: {productSelected.stock} u.
-                        </Text>
-                    </Card>
-                </ScrollView>
+                            <Text>{productSelected.description}</Text>
+                            <Text style={styles.price}>
+                                Precio: $ {productSelected.price}
+                            </Text>
+                            <Pressable
+                                onPress={launchModal}
+                                style={({ pressed }) => [
+                                    styles.button,
+                                    pressed && styles.buttonPressed,
+                                ]}
+                            >
+                                <Text>Agregar al carrito</Text>
+                            </Pressable>
+                            <Text style={styles.stock}>
+                                Stock: {productSelected.stock} u.
+                            </Text>
+                        </Card>
+                    </ScrollView>
+                    <CustomModal
+                        modalVisible={modalVisible}
+                        setModalVisible={setModalVisible}
+                        modalTitle={"Mensaje"}
+                        modalMessage={"Producto agregado al carrito"}
+                        showCancelButton={false}
+                        cancelButtonTitle={"Regresar"}
+                        confirmButtonTitle={"Aceptar"}
+                        confirmButtonHandler={onAddToCart}
+                    />
+                </>
             );
         }
     }
@@ -116,22 +140,22 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
 
-    button:{
+    button: {
         backgroundColor: colors.ligthGray,
         paddingHorizontal: 15,
         paddingVertical: 5,
         borderRadius: 3,
         borderColor: colors.darkGray,
-        borderWidth: 1
+        borderWidth: 1,
     },
 
-    buttonPressed:{
+    buttonPressed: {
         backgroundColor: colors.skyBlue,
         paddingHorizontal: 15,
         paddingVertical: 5,
         borderRadius: 3,
         borderColor: colors.darkBlue,
-        borderWidth: 1
+        borderWidth: 1,
     },
 
     stock: {

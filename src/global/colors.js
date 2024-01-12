@@ -2,6 +2,7 @@ export const colors = {
     orange: '#FB8500',
     yellow: '#FFB703',
     darkBlue: '#023047',
+    darkBlueTransp: '#02304733',
     ligthBlue: '#219EBC',
     skyBlue: '#8ECAE6',
     ligthGray: '#F2F2F2',

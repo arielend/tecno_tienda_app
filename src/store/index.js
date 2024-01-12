@@ -6,8 +6,8 @@ import { shopApi } from "../services/shopServices"
 
 const store = configureStore({
     reducer: {
-        shopReducer,
         cartReducer,
+        shopReducer,
         [shopApi.reducerPath]: shopApi.reducer
     },
     middleware: (getDefaultMiddleware) => 

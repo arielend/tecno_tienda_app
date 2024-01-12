@@ -10,7 +10,8 @@ const CartItem = ({ id, shortName, name, thumbnail, price, quantity }) => {
     const dispatch = useDispatch()
 
     const onRemoveItem = () => {
-        dispatch(removeItemFromCart(id))
+        //Continuar implementación
+        dispatch(removeItemFromCart(id))        
     }
 
     return (
@@ -19,7 +20,7 @@ const CartItem = ({ id, shortName, name, thumbnail, price, quantity }) => {
                 <Text style={styles.itemName}>{shortName}</Text>
                 <TouchableOpacity
                     activeOpacity={0.65}
-                    onPress={onRemoveItem}
+                    onPress={null}
                 >
                     <Image
                         style={styles.icons}

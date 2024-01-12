@@ -1,47 +1,81 @@
 import { StyleSheet, FlatList, Text, View, Pressable } from "react-native"
 import { colors } from "../global/colors"
-import { CartItem } from "../components"
+import { CartItem, CustomModal } from "../components"
 import { useSelector } from "react-redux"
+import { usePostOrderMutation } from '../services/shopServices'
+import { useState } from "react"
+import { clearCart } from "../features/cartSlice"
+import { useDispatch } from "react-redux"
 
-const Cart = () => {
+const Cart = ({navigation}) => {
 
-    const cartItems = useSelector(state => state.cartReducer.items)
-    console.log(cartItems)
-    console.log("El carrito tiene ", cartItems.length, " elementos")
+    const [ modalVisible, setModalVisible ] = useState(false)
+
+    const cartItems = useSelector(state => state.cartReducer.items)   
 
     const totalBudget = useSelector(state => state.cartReducer.totalBudget)
+
+    const [ triggerPost, result ] = usePostOrderMutation()
+
+    const dispatch = useDispatch()
+
+    const launchModal = () => {
+        setModalVisible(!modalVisible)
+    }
+    
+    const confirmCart = () => {
+        triggerPost({totalBudget, cartItems, user: 'testUser'})
+        setModalVisible(!modalVisible)
+        dispatch(clearCart())        
+        navigation.navigate("OrdersStack", {Screen: "Orders"})
+    }
 
     const renderCartItems = ({item}) => {
 
         return(
             <View>
-                <CartItem {...item}/>
+                <CartItem {...item} navigation={navigation}/>
             </View>
         )
     }
     
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Mi Carrito</Text>
+        <>
+            <View style={styles.container}>
+                <Text style={styles.title}>Mi Carrito</Text>
 
-            <FlatList
-                data={cartItems}
-                renderItem={renderCartItems}
-                keyExtractor={(item) => item.id}
-            />
+                <FlatList
+                    data={cartItems}
+                    renderItem={renderCartItems}
+                    keyExtractor={(item) => item.id}
+                />
 
-            <View style={styles.buySection}>
-                <Text style={styles.total}>Mi compra: $ {totalBudget}</Text>
-                <Pressable 
-                style={({pressed})=>[
-                    styles.button,
-                    pressed && styles.buttonPressed
-                ]}                
-                >
-                    <Text>Comprar</Text>
-                </Pressable>
+                <View style={styles.buySection}>
+                    <Text style={styles.total}>Mi compra: $ {totalBudget}</Text>
+                    <Pressable
+                        onPress={launchModal} 
+                        style={({pressed})=>[
+                            styles.button,
+                            pressed && styles.buttonPressed
+                            ]
+                        }
+                    >
+                        <Text>Comprar</Text>
+                    </Pressable>
+                </View>
             </View>
-        </View>
+
+            <CustomModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            modalTitle={'Atención'}
+            modalMessage={'¿Confirma la compra?'}
+            showCancelButton={true}
+            cancelButtonTitle={'Regresar'}
+            confirmButtonTitle={'Confirmar'}
+            confirmButtonHandler={confirmCart}
+            />
+        </>
     );
 }
 
