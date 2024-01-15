@@ -88,6 +88,7 @@ const TabNavigator = () => {
                         ),
                     }}
                 />
+                
             </Tab.Navigator>
         
     )
