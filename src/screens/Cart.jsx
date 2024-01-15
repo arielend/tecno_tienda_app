@@ -2,7 +2,7 @@ import { StyleSheet, FlatList, Text, View, Pressable } from "react-native"
 import { colors } from "../global/colors"
 import { CartItem, CustomModal } from "../components"
 import { useSelector } from "react-redux"
-import { usePostOrderMutation } from '../services/shopServices'
+import { usePostOrderMutation } from '../services/shopService'
 import { useState } from "react"
 import { clearCart } from "../features/cartSlice"
 import { useDispatch } from "react-redux"
@@ -11,12 +11,12 @@ const Cart = ({navigation}) => {
 
     const [ modalVisible, setModalVisible ] = useState(false)
 
-    const cartItems = useSelector(state => state.cartReducer.items)   
-
+    const cartItems = useSelector(state => state.cartReducer.items)
     const totalBudget = useSelector(state => state.cartReducer.totalBudget)
+    const userLogged = useSelector(state => state.authReducer.userEmail)
 
     const [ triggerPost, result ] = usePostOrderMutation()
-
+    
     const dispatch = useDispatch()
 
     const launchModal = () => {
@@ -24,14 +24,13 @@ const Cart = ({navigation}) => {
     }
     
     const confirmCart = () => {
-        triggerPost({totalBudget, cartItems, user: 'testUser'})
+        triggerPost({totalBudget, cartItems, user: userLogged})
         setModalVisible(!modalVisible)
         dispatch(clearCart())        
         navigation.navigate("OrdersStack", {Screen: "Orders"})
     }
 
     const renderCartItems = ({item}) => {
-
         return(
             <View>
                 <CartItem {...item} navigation={navigation}/>
@@ -76,7 +75,7 @@ const Cart = ({navigation}) => {
             confirmButtonHandler={confirmCart}
             />
         </>
-    );
+    )
 }
 
 export default Cart

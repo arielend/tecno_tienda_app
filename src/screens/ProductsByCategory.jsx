@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native"
 import { ProductItem, Searcher, Skeleton } from "../components"
 import { colors } from "../global/colors"
 import { useSelector } from "react-redux"
-import { useGetProductsByCategoryQuery } from "../services/shopServices"
+import { useGetProductsByCategoryQuery } from "../services/shopService"
 
 const ProductsByCategory = ({navigation}) => {
 
