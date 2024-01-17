@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { colors } from '../global/colors'
 import { CategoryItem } from '../components'
-import { useGetCategoriesQuery } from '../services/shopServices'
+import { useGetCategoriesQuery } from '../services/shopService'
 
 const Categories = ({navigation}) => {
 

@@ -1,18 +1,17 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
-import AccountNavigator from "./AccountNavigator";
-import CartNavigator from "./CartNavigator";
-import OrdersNavigator from "./OrdersNavigator";
-import ShopNavigator from "./ShopNavigator";
-import { StyleSheet, Image } from "react-native";
-import { colors } from "../global/colors";
+import AccountNavigator from "./AccountNavigator"
+import CartNavigator from "./CartNavigator"
+import OrdersNavigator from "./OrdersNavigator"
+import ShopNavigator from "./ShopNavigator"
+import { StyleSheet, Image } from "react-native"
+import { colors } from "../global/colors"
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
     return (
-        <NavigationContainer>
+        
             <Tab.Navigator
                 initialRouteName="ShopStack"
                 backBehavior="history"
@@ -89,12 +88,13 @@ const TabNavigator = () => {
                         ),
                     }}
                 />
+                
             </Tab.Navigator>
-        </NavigationContainer>
-    );
-};
+        
+    )
+}
 
-export default TabNavigator;
+export default TabNavigator
 
 const styles = StyleSheet.create({
     tabBar: {
@@ -107,4 +107,4 @@ const styles = StyleSheet.create({
         height: 40,
         width: 40,
     },
-});
+})
