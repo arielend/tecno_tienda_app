@@ -10,6 +10,9 @@ import { updateFavorites } from  '../features/authSlice'
 
 import { usePutFavoriteItemsMutation } from '../services/userProfileService'
 
+import * as FileSystem from 'expo-file-system'
+import * as Sharing from 'expo-sharing'
+
 const ProductDetail = ({ navigation }) => {
 
     const dispatch = useDispatch();
@@ -25,6 +28,27 @@ const ProductDetail = ({ navigation }) => {
     }
 
     const [ triggerPutFavoriteItems, result ] = usePutFavoriteItemsMutation()
+
+    const shareUrl = async (urlToShare) => {
+        try{
+            const isAppAvailable = await Sharing.isAvailableAsync()
+            if (isAppAvailable) {
+                const { uri } = await FileSystem.downloadAsync(urlToShare, FileSystem.documentDirectory + 'tiendaItem.html')
+                await Sharing.shareAsync(uri)
+            }
+            else{
+                console.log("No hay aplicaciones para compartir")
+            }
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
+    const sharingHandler = () => {
+        const url = `https://react-pf-endrizzi.vercel.app/item/${productSelected.storeId}`
+        shareUrl(url)        
+    }
     
     const setFavoriteHandler = () => {        
 
@@ -68,7 +92,7 @@ const ProductDetail = ({ navigation }) => {
 
                             <Pressable
                                 style={styles.sharePress}
-                                onPress={null}
+                                onPress={()=> sharingHandler()}
                                 hitSlop={20}
                             >
                                 <Image
