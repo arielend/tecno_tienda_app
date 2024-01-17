@@ -1,6 +1,7 @@
 export { default as Carousel } from './carousel'
 export { default as CartItem } from './cartItem'
 export { default as CategoryItem } from './categoryItem'
+export { default as CustomButton } from './customButton'
 export { default as CustomModal } from './customModal'
 export { default as Header } from './header'
 export { default as Input } from './input'

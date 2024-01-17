@@ -2,17 +2,20 @@ import { StyleSheet, View, Text, Pressable, Image } from "react-native"
 import { colors } from "../global/colors"
 import { useState } from "react"
 import userData from '../data/userData.json'
+import { useSelector } from "react-redux"
 
-const Account = () => {
+const Account = ({navigation}) => {
 
-    const [ image, setImage ] = useState()
+    const image = useSelector(state => state.authReducer.profilePicture)
 
     return (
         <View style={styles.container}>
 
+            <Text style={styles.title}>Mi cuenta</Text>
+
             <View style={styles.imageContainer}>
                 <Pressable
-                    onPress={() => {}}
+                    onPress={() => {navigation.navigate('imageSelector')}}
                     style={({ pressed }) => [
                         {
                             backgroundColor: pressed
@@ -22,19 +25,20 @@ const Account = () => {
                         styles.imageContainer,
                     ]}
                 >
-                    {image ? (
-                        <Image />
-                    ) : (
-                        <Image
+                    {image ? <Image
+                            source={{uri:image}}
                             style={styles.profileImage}
+                            resizeMode="contain"/>
+                            : <Image
                             source={require("../../assets/img/profile_icon2.png")}
-                        />
-                    )}
+                            style={styles.profileImage}
+                            resizeMode="contain"/>
+                    }
                 </Pressable>
             </View>
 
             <View style={styles.dataContainer}>
-                <Text>Usuario: {userData.name}</Text>
+                <Text style={styles.textUserName}>Usuario: {userData.name}</Text>
                 <Text>Tipo de usuario: {userData.role}</Text>
                 <Text>Nivel cuenta: {userData.level}</Text>
                 <Text>Domicilio: {userData.address}</Text>
@@ -52,9 +56,9 @@ const styles = StyleSheet.create({
     container:{
         backgroundColor: '#FFF',
         height: '100%',
-        flexDirection: 'row',
-        padding: 20,
-        columnGap: 10
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        rowGap: 15
     },
 
     title:{
@@ -67,18 +71,23 @@ const styles = StyleSheet.create({
     imageContainer:{
         justifyContent: 'center',
         alignItems: 'center',
-        width: 100,
-        height: 100,
-        borderRadius: 100
+        width: 150,
+        height: 150,
+        borderRadius: 150
     },
 
     dataContainer:{
+        alignSelf: 'flex-start'
+    },
 
+    textUserName:{
+        fontWeight: 'bold'
     },
 
     profileImage:{
-        width: 100,
-        height: 100
+        width: 150,
+        height: 150,
+        borderRadius: 150
     }
 
 })

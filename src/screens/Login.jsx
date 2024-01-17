@@ -14,7 +14,7 @@ const Login = ({navigation}) => {
     const [ triggerLogin, result ] = useLoginMutation()   
     
     const onLoginHandler = () => {        
-        triggerLogin({email, password})
+        triggerLogin({email: 'arielendrizzi78@gmail.com', password: '123456'})
     }
     
     const dispatch = useDispatch()

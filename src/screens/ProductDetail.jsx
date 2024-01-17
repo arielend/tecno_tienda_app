@@ -6,25 +6,38 @@ import { colors } from "../global/colors";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addItemToCart } from "../features/cartSlice";
+import { updateFavorites } from  '../features/authSlice'
+
+import { usePutFavoriteItemsMutation } from '../services/userProfileService'
 
 const ProductDetail = ({ navigation }) => {
+
     const dispatch = useDispatch();
-
-    const productSelected = useSelector(
-        (state) => state.shopReducer.productSelectedById
-    );
-
-    const [modalVisible, setModalVisible] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [favorite, setFavorite] = useState(false);
+    const localId = useSelector( state => state.authReducer.localId)
+    const userFavorites = useSelector ( state => state.authReducer.favorites)    
+    const productSelected = useSelector( state => state.shopReducer.productSelectedById)
+    const [ modalVisible, setModalVisible ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(true);
+    const isInFavs = userFavorites.some( favId => favId === productSelected.id)
 
     const launchModal = () => {
         setModalVisible(!modalVisible);
-    };
+    }
 
-    const favoriteHandler = () => {
-        setFavorite(!favorite);
-    };
+    const [ triggerPutFavoriteItems, result ] = usePutFavoriteItemsMutation()
+    
+    const setFavoriteHandler = () => {        
+
+        if(!isInFavs){
+            const favsUpdated = [...userFavorites, productSelected.id]
+            dispatch(updateFavorites(favsUpdated))
+            triggerPutFavoriteItems({favsUpdated, localId})
+        } else {
+            const favsUpdated = userFavorites.filter( favId => favId !== productSelected.id)
+            dispatch(updateFavorites(favsUpdated))
+            triggerPutFavoriteItems({favsUpdated, localId})
+        }
+    }
 
     useEffect(() => {
         setIsLoading(false);
@@ -69,14 +82,14 @@ const ProductDetail = ({ navigation }) => {
 
                             <Pressable
                                 style={styles.favPress}
-                                onPress={() => favoriteHandler()}
+                                onPress={() => setFavoriteHandler()}
                                 hitSlop={20}
                             >
                                 <Image
                                     style={styles.favIcon}
                                     resizeMode="cover"
                                     source={
-                                        favorite
+                                        isInFavs
                                             ? { uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavAdded_icon3.webp?alt=media&token=879524b2-7346-4f9d-a727-4e454812aaa9",}
                                             : { uri: "https://firebasestorage.googleapis.com/v0/b/tecno-tienda-f68c1.appspot.com/o/img%2Ficons%2FfavRemoved_icon3.webp?alt=media&token=0f649a31-6890-4603-b807-7024ef4516f3",}
                                     }
