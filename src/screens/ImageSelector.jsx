@@ -53,12 +53,12 @@ const ImageSelector = ({navigation}) => {
         <View style={styles.container}>
             <Text style={styles.title}>Mi imagen de perfil</Text>
             {
-                profilePicture ?
+                (profilePicture || image) ?
                 <View>
 
                     <View style={styles.imageContainer}>                        
                         <Image
-                            source={{uri:profilePicture}}
+                            source={{uri:profilePicture||image}}
                             style={styles.image}
                             resizeMode="contain"
                         />
@@ -69,10 +69,18 @@ const ImageSelector = ({navigation}) => {
                             buttonTitle={'Tomar otra'}
                             onPressHandler={onTakePhotoHandler}
                         />
-                        <CustomButton
-                            buttonTitle={'Confirmar'}
-                            onPressHandler={onConfirmHandler}
-                        />
+                        {/* Validamos que haya una foto en el estado para confirmar, si no se podría guardar una cadena vacía en lugar de una imagen */}
+                        {
+                            (!image && profilePicture) ? 
+                            <CustomButton
+                                buttonTitle={'Regresar'}
+                                onPressHandler={()=>{navigation.goBack()}}
+                            /> :
+                            <CustomButton
+                                buttonTitle={'Confirmar'}
+                                onPressHandler={onConfirmHandler}
+                            />
+                        }
 
                     </View>
                 </View>

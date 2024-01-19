@@ -1,12 +1,24 @@
-import { StyleSheet, View, Text, Pressable, Image } from "react-native"
-import { colors } from "../global/colors"
-import { useState } from "react"
+import { StyleSheet, View, Text, Pressable, Image } from 'react-native'
+import { colors } from '../global/colors'
 import userData from '../data/userData.json'
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from 'react-redux'
+import { CustomButton } from '../components'
+import { deleteUserSessionDB } from '../db'
+import { clearUserSessionData } from '../features/authSlice'
+
 
 const Account = ({navigation}) => {
 
     const image = useSelector(state => state.authReducer.profilePicture)
+
+    const localId = useSelector( state => state.authReducer.localId)
+
+    const dispatch = useDispatch()
+
+    const onLogoutHandler = () => {
+        deleteUserSessionDB({localId})
+        dispatch(clearUserSessionData())
+    }
 
     return (
         <View style={styles.container}>
@@ -43,6 +55,13 @@ const Account = ({navigation}) => {
                 <Text>Nivel cuenta: {userData.level}</Text>
                 <Text>Domicilio: {userData.address}</Text>
                 <Text>Ciudad: {userData.city}</Text>
+            </View>
+
+            <View>
+                <CustomButton
+                    buttonTitle={'Cerrar sesión'}
+                    onPressHandler={()=>onLogoutHandler()}
+                />
             </View>
 
         </View>
