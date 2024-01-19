@@ -17,7 +17,8 @@ export const authSlice = createSlice({
         },
         clearUserSessionData: state => {
             state.userEmail = '',
-            state.idToken = ''
+            state.idToken = '',
+            state.localId = ''
         },
         setProfilePicture: (state, action) => {
             state.profilePicture = action.payload
@@ -29,5 +30,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const { setUserSessionData, setProfilePicture, updateFavorites } = authSlice.actions
+export const { setUserSessionData, setProfilePicture, updateFavorites, clearUserSessionData } = authSlice.actions
 export default authSlice.reducer
