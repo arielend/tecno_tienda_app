@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 import categoriesData from '../data/tecnotienda_catData.json'
-import productsData from '../data/tecnotienda_prodData.json'
 
 export const shopSlice = createSlice({
     name: "shop",
     initialState:{
         categories: categoriesData,
-        products: productsData,
+        products: [],
         productsFilteredByCategory: [],
         productsFilteredBySearch: [],
         categorySelected: "",
@@ -16,6 +15,9 @@ export const shopSlice = createSlice({
     reducers:{
         setCategorySelected: (state, action) => {
             state.categorySelected = action.payload            
+        },
+        setProducts: (state, action) => {
+            state.products = action.payload
         },
         setProductIdSelected: (state, action) => {
             state.productIdSelected = action.payload            
@@ -33,6 +35,7 @@ export const shopSlice = createSlice({
 })
 
 export const {
+    setProducts,
     setCategorySelected,
     setProductIdSelected,
     setProductSelectedById,

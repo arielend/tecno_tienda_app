@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, ScrollView, Image, Pressable } from "react-native";
+import { StyleSheet, Text, ScrollView, Image, Pressable, Share } from "react-native";
 import { Skeleton, Carousel, CustomModal } from "../components";
 import Card from "../components/card/Card";
 import { colors } from "../global/colors";
@@ -25,6 +25,34 @@ const ProductDetail = ({ navigation }) => {
     }
 
     const [ triggerPutFavoriteItems, result ] = usePutFavoriteItemsMutation()
+
+    const shareUrl = async (urlToShare) => {
+
+        try{
+            const result = await Share.share({
+                message: (`Compra en Tecno Tienda: ${urlToShare}`)
+            })
+
+            if(result.action === Share.dismissedAction){
+                if(result.activityType){
+                    console.log("Shared with activity type of: ", result.activityType);
+                }
+                else{
+                    console.log("Share action dismissed.")
+                }
+            }
+
+        }
+        catch (error){
+            console.log(error.message);
+        }        
+    }
+
+    const sharingHandler = () => {
+        const url = `https://react-pf-endrizzi.vercel.app/item/${productSelected.storeId}`
+        const urlTienda = 'https://react-pf-endrizzi.vercel.app'
+        shareUrl(urlTienda)        
+    }
     
     const setFavoriteHandler = () => {        
 
@@ -68,7 +96,7 @@ const ProductDetail = ({ navigation }) => {
 
                             <Pressable
                                 style={styles.sharePress}
-                                onPress={null}
+                                onPress={()=> sharingHandler()}
                                 hitSlop={20}
                             >
                                 <Image
