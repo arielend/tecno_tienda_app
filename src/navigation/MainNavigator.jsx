@@ -11,41 +11,32 @@ import { setProfilePicture } from '../features/authSlice'
 import { updateFavorites } from '../features/authSlice'
 import { setUserSessionData } from '../features/authSlice'
 
-//Usar deleteSessions solo para borrar sesiones en producción
+//Usar deleteSessions solo para borrar sesiones locales en producción
 import { deleteSessions } from '../db'
 import { getSessions } from '../db'
-import { Skeleton } from '../components'
 
 const MainNavigator = () => {
 
     //deleteSessions()
 
     const user = useSelector( state => state.authReducer.userEmail)
-    const [ userStored, setUserStored  ] = useState()
     const localId = useSelector( state => state.authReducer.localId)
     const { data, error, isLoading } = useGetProfilePictureQuery(localId)
     const { data: favorites } = useGetFavoriteItemsQuery(localId)
     const dispatch = useDispatch()
-
-    const [ readingLocalDB, setReadingLocalDB ] = useState(true)
 
     useEffect(()=>{
         (
             async () => {
                 try{
                     const sessions = await getSessions()
-                    console.log("Lo que hay guardado en sessions DB: ", sessions.rows._array)
                     if(sessions?.rows.length){
-                        console.log("Hay sesiones guardadas")
+                        console.log("Hay sesiones guardadas localmente")
                         const user = sessions.rows._array[0]
-                        console.log("User in storage: ", user)
-                        setUserStored(user)
-                        dispatch(setUserSessionData(user))
-                        setReadingLocalDB(false)
+                        dispatch(setUserSessionData(user))                        
                     }
                     else{
-                        console.log("No hay usuarios locales guardados")
-                        setReadingLocalDB(false)
+                        console.log("No hay sesiones guardadas localmente")
                     }
                 }
                 catch(error){

@@ -15,8 +15,6 @@ const Login = ({navigation}) => {
     const [ password, setPassword] = useState('')
     const [ triggerLogin, result ] = useLoginMutation()
 
-    console.log("Lo que trae result del Login", result.data);
-    
     const onLoginHandler = () => {        
         triggerLogin({email, password})
     }
@@ -25,7 +23,6 @@ const Login = ({navigation}) => {
 
     useEffect (()=>{
         if(result?.data){
-            console.log("Lo que voy a insertar en la BD: ", result.data);
             dispatch(setUserSessionData(result.data))
             insertSession({
                 userEmail: result.data.email,
