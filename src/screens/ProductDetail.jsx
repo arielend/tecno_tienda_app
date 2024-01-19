@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, ScrollView, Image, Pressable } from "react-native";
+import { StyleSheet, Text, ScrollView, Image, Pressable, Share } from "react-native";
 import { Skeleton, Carousel, CustomModal } from "../components";
 import Card from "../components/card/Card";
 import { colors } from "../global/colors";
@@ -9,9 +9,6 @@ import { addItemToCart } from "../features/cartSlice";
 import { updateFavorites } from  '../features/authSlice'
 
 import { usePutFavoriteItemsMutation } from '../services/userProfileService'
-
-import * as FileSystem from 'expo-file-system'
-import * as Sharing from 'expo-sharing'
 
 const ProductDetail = ({ navigation }) => {
 
@@ -30,24 +27,31 @@ const ProductDetail = ({ navigation }) => {
     const [ triggerPutFavoriteItems, result ] = usePutFavoriteItemsMutation()
 
     const shareUrl = async (urlToShare) => {
+
         try{
-            const isAppAvailable = await Sharing.isAvailableAsync()
-            if (isAppAvailable) {
-                const { uri } = await FileSystem.downloadAsync(urlToShare, FileSystem.documentDirectory + 'tiendaItem.html')
-                await Sharing.shareAsync(uri)
+            const result = await Share.share({
+                message: (`Compra en Tecno Tienda: ${urlToShare}`)
+            })
+
+            if(result.action === Share.dismissedAction){
+                if(result.activityType){
+                    console.log("Shared with activity type of: ", result.activityType);
+                }
+                else{
+                    console.log("Share action dismissed.")
+                }
             }
-            else{
-                console.log("No hay aplicaciones para compartir")
-            }
+
         }
-        catch(error){
-            console.log(error)
-        }
+        catch (error){
+            console.log(error.message);
+        }        
     }
 
     const sharingHandler = () => {
         const url = `https://react-pf-endrizzi.vercel.app/item/${productSelected.storeId}`
-        shareUrl(url)        
+        const urlTienda = 'https://react-pf-endrizzi.vercel.app'
+        shareUrl(urlTienda)        
     }
     
     const setFavoriteHandler = () => {        
