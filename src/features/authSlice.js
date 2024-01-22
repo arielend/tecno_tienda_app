@@ -5,6 +5,14 @@ export const authSlice = createSlice({
     initialState:{
         userEmail: '',
         idToken:'',
+        userAddress: {
+            latitude:'',
+            longitude: '',
+            address: '',
+            locality: '',
+            province: '',
+            country: ''
+        },
         profilePicture: '',
         localId: '',
         favorites: []
@@ -27,8 +35,19 @@ export const authSlice = createSlice({
             const favsUpdated = action.payload
             state.favorites = favsUpdated            
         },
+        setUserAddress: (state, action) => {
+            state.userAddress = {
+                address: action.payload.address,
+                latitude: action.payload.latitude,
+                longitude: action.payload.longitude,
+                locality: action.payload.locality,
+                province: action.payload.province,
+                country: action.payload.country
+            }
+            console.log("La dirección del usuario es: ", state.userAddress);
+        }
     }
 })
 
-export const { setUserSessionData, setProfilePicture, updateFavorites, clearUserSessionData } = authSlice.actions
+export const { setUserSessionData, setProfilePicture, setUserAddress, updateFavorites, clearUserSessionData } = authSlice.actions
 export default authSlice.reducer

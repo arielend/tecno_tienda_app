@@ -27,8 +27,18 @@ export const userProfileApi = createApi({
         }),
         getFavoriteItems: builder.query({
             query: (localId) => `favoriteItems/${localId}.json`
+        }),
+        putUserAddress: builder.mutation({
+            query: ({userAddress, localId}) =>({
+                url: `userAddress/${localId}.json`,
+                method: 'PUT',
+                body: userAddress
+            })
+        }),
+        getUserAddress: builder.query({
+            query: (localId) => `userAddress/${localId}.json`            
         })
     })
 })
 
-export const { usePutProfilePictureMutation, useGetProfilePictureQuery, useGetFavoriteItemsQuery, usePutFavoriteItemsMutation } = userProfileApi
+export const { usePutProfilePictureMutation, useGetProfilePictureQuery, useGetFavoriteItemsQuery, usePutFavoriteItemsMutation, useGetUserAddressQuery, usePutUserAddressMutation } = userProfileApi
