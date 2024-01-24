@@ -12,6 +12,8 @@ const Account = ({navigation}) => {
 
     const image = useSelector(state => state.authReducer.profilePicture)
 
+    const userAddress = useSelector(state => state.authReducer.userAddress)
+
     const localId = useSelector( state => state.authReducer.localId)
 
     const dispatch = useDispatch()
@@ -57,6 +59,14 @@ const Account = ({navigation}) => {
                 <Text>Nivel cuenta: {userData.level}</Text>                
             </View>
 
+            {
+                userAddress && 
+                <View style={styles.lastLocationContainer}>
+                    <Text style={styles.lastLocationTitle}>Última ubicación guardada</Text>
+                    <Text style={styles.lastLocationText}>{userAddress.address}</Text>
+                </View>
+            }
+
 
             <View>
                 <LocationSelector/> 
@@ -94,6 +104,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 150
+    },
+
+    lastLocationContainer:{
+        backgroundColor: colors.ligthBlue,
+        borderRadius: 10,
+        padding: 5,
+        alignItems: 'center'
+    },
+
+    lastLocationTitle:{
+        fontWeight: 'bold',
+        color: 'white'
+    },
+
+    lastLocationText:{
+        textAlign: 'center'
     },
 
     dataContainer:{

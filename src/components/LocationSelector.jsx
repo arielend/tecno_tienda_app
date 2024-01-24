@@ -7,6 +7,7 @@ import { map_api_key } from '../cloudService/googleClouds'
 import { setUserAddress } from '../features/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { usePutUserAddressMutation } from '../services/userProfileService'
+import { getDistance } from 'geolib'
 
 const LocationSelector = () => {
 
@@ -16,9 +17,10 @@ const LocationSelector = () => {
     const [ province, setProvince ] = useState()
     const [ country, setCountry ] = useState()
     const [ error, setError ] = useState()
+    const [ storeDistance, setStoreDistance ] = useState()
     const storeLocation = {latitude:-34.9136569,longitude:-57.9535207}
     const localId = useSelector(state => state.authReducer.localId)
-
+    
     const [ triggerPutUserAddress, result ] = usePutUserAddressMutation()
 
     useEffect(()=>{
@@ -46,9 +48,12 @@ const LocationSelector = () => {
                         const data = await response.json()
                         const formattedAddress = await data.results[0].formatted_address
 
-                        // console.log("Lo que trae data result en address components: ", data.results[0].address_components);
-                        // console.log("Lo que trae data result en formatted address: ", data.results[0].formatted_address);
+                        const distance = getDistance(
+                            {latitude: location.latitude, longitude: location.longitude},
+                            {latitude: storeLocation.latitude, longitude: storeLocation.longitude}
+                        )
 
+                        setStoreDistance(distance)
                         setLocality(data.results[0].address_components.find( (i) => i.types.find( e => e === 'locality')).long_name)
                         setProvince(data.results[0].address_components.find( (i) => i.types.find( e => e === 'administrative_area_level_1')).long_name)
                         setCountry(data.results[0].address_components.find( (i) => i.types.find( e => e === 'country')).long_name)
@@ -88,6 +93,7 @@ const LocationSelector = () => {
                 <Text> País: {country} </Text>
                 <Text>Provincia: {province} </Text>
                 <Text>Localidad: {locality} </Text>
+                <Text>La tienda más cercana esta a {storeDistance} metros </Text>
                 <CustomButton
                     buttonTitle={'Actualizar ubicación'}
                     onPressHandler={onLocationUpdateHandler}
