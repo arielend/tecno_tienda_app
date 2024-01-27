@@ -58,7 +58,7 @@ const ImageSelector = ({navigation}) => {
 
                     <View style={styles.imageContainer}>                        
                         <Image
-                            source={{uri:profilePicture||image}}
+                            source={{uri:image||profilePicture}}
                             style={styles.image}
                             resizeMode="contain"
                         />

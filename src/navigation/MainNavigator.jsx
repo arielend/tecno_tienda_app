@@ -6,12 +6,12 @@ import TabNavigator from './TabNavigator'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useGetProductsQuery } from '../services/shopService'
-import { useGetProfilePictureQuery } from '../services/userProfileService'
-import { useGetFavoriteItemsQuery } from '../services/userProfileService'
-import { setProfilePicture } from '../features/authSlice'
+import { useGetProfilePictureQuery, useGetFavoriteItemsQuery } from '../services/userProfileService'
+
+import { setProfilePicture, updateFavorites, setUserSessionData, setUserAddress } from '../features/authSlice'
 import { setProducts } from '../features/shopSlice'
-import { updateFavorites } from '../features/authSlice'
-import { setUserSessionData } from '../features/authSlice'
+
+import { useGetUserAddressQuery } from '../services/userProfileService'
 
 //Usar deleteSessions solo para borrar sesiones locales en producción
 import { deleteSessions } from '../db'
@@ -26,6 +26,8 @@ const MainNavigator = () => {
     const { data: products } = useGetProductsQuery()
     const { data, error, isLoading } = useGetProfilePictureQuery(localId)
     const { data: favorites } = useGetFavoriteItemsQuery(localId)
+    const { data: userAddressData, error: userAddressError, isLoading: isUserAddressLoading } = useGetUserAddressQuery(localId)
+
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -53,7 +55,11 @@ const MainNavigator = () => {
         if(data){
             dispatch(setProfilePicture(data.image))
         }
-    }, [data])
+        if(userAddressData){
+            dispatch(setUserAddress(userAddressData))
+        }
+
+    }, [data, userAddressData])
 
     useEffect(()=>{
         if(products){
