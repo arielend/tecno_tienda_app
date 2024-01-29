@@ -1,38 +1,39 @@
-import { FlatList, StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
+import { FlatList, StyleSheet, Text, View, ScrollView, SafeAreaView, VirtualizedList } from "react-native";
 import { colors } from "../global/colors";
 import Card from "../components/card/Card";
 
 const OrderDetail = ({route}) => {
+
+    const order = route.params
 
     const renderOrderProducts = ({item}) => (
         <Card>
             <View style={styles.separator}></View>
             <Text>{item.shortName}</Text>
             <Text>{item.quantity} u.</Text>
-            <Text>Subtotal $ {item.price}</Text>
+            <Text>Subtotal $ {item.price * item.quantity}</Text>
         </Card>
     )
 
     return (
 
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
         
             <Text style={styles.title}>Detalle de mi compra</Text>
             <Card style={styles.card}>
-                <Text>ID: {route.params.id}</Text>
-                <Text>Fecha: {route.params.orderDate}</Text>
+                <Text>ID: {order.orderId}</Text>
                 <Text>Productos:</Text>
                 <FlatList
-                    data={route.params.orderProducts}
+                    data={order.orderItems}
                     renderItem={renderOrderProducts}
                     keyExtractor={item=>item.id}
-                    nestedScrollEnabled
-                />
+                    style={{height: '75%'}}
+                />                
                 <View style={styles.separator}></View>
-                <Text>Total compra: $ {route.params.orderTotal}</Text>
+                <Text>Total compra: $ {order.orderTotal}</Text>
             </Card>
             
-        </ScrollView>
+        </View>
 
     );
 };

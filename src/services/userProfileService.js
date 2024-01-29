@@ -25,9 +25,6 @@ export const userProfileApi = createApi({
                 body: favsUpdated
             })
         }),
-        getFavoriteItems: builder.query({
-            query: (localId) => `favoriteItems/${localId}.json`
-        }),
         putUserAddress: builder.mutation({
             query: ({userAddress, localId}) =>({
                 url: `userAddress/${localId}.json`,

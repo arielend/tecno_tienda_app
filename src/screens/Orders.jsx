@@ -1,25 +1,44 @@
 import { StyleSheet, View, Text, FlatList } from "react-native"
 import { colors } from "../global/colors"
-import ordersData from '../data/tecnotienda_ordersData.json'
 import { OrderItem } from "../components"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
 const Orders = ({navigation}) => {
 
-    const renderOrderItem = ({item}) => (
-        <OrderItem {...item} navigation={navigation}/>
-    )
+    const userOrders = useSelector( state => state.shopReducer.userOrders)
+    const [ orders, setOrders ] = useState([])
+    
+    useEffect(()=>{
+        if(userOrders){
+            setOrders(userOrders)
+        }
+    },[userOrders])
+    
+    const renderOrderItem = ({item}) => {
+        return <OrderItem {...item} navigation={navigation}/>
+    }
 
     return(
-        <View style={styles.container}>
-            <Text style={styles.title}>Mis Compras</Text>
+        <>
+        {
+            (userOrders.length !== 0) ?
+            <View style={styles.container}>
+                <Text style={styles.title}>Mis Compras</Text>
+                {
+                    <FlatList
+                    data={orders}
+                    renderItem={renderOrderItem}
+                    keyExtractor={(item)=> item.orderId}/>
+                }
+            </View>:
+            <View style={styles.container}>
+                <Text style={styles.title}>Mis Compras</Text>
+                <Text style={styles.message}>Aún no has comprado nada</Text>
+            </View>
 
-            <FlatList
-                data={ordersData}
-                renderItem={renderOrderItem}
-                keyExtractor={(item)=> item.id}
-            />
-
-        </View>
+        }
+        </>        
     )
 }
 
@@ -30,6 +49,8 @@ const styles = StyleSheet.create({
     container:{
         backgroundColor: '#FFF',
         marginBottom: 110,
+        alignItems: 'center',
+        height: '100%'
     },
 
     title:{
@@ -39,6 +60,10 @@ const styles = StyleSheet.create({
         color: colors.ligthBlue,
     },
 
-    
+    message:{
+        marginTop: 230,
+        color: colors.ligthBlue,
+        fontSize: 16
+    },    
 
 })

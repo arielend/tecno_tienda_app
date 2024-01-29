@@ -44,7 +44,6 @@ export const authSlice = createSlice({
                 province: action.payload.province,
                 country: action.payload.country
             }
-            console.log("La dirección del usuario es: ", state.userAddress);
         }
     }
 })

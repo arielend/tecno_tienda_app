@@ -1,18 +1,8 @@
 import { Text, View, Image, TouchableOpacity } from "react-native"
 import { styles } from './styles'
-import { useDispatch } from "react-redux"
-import { removeItemFromCart } from "../../features/cartSlice"
-
 import Card from "../card/Card"
 
-const CartItem = ({ id, shortName, name, thumbnail, price, quantity }) => {
-
-    const dispatch = useDispatch()
-
-    const onRemoveItem = () => {
-        //Continuar implementación
-        dispatch(removeItemFromCart(id))        
-    }
+const CartItem = ({ shortName, name, thumbnail, price, quantity }) => {
 
     return (
         <Card style={styles.card}>

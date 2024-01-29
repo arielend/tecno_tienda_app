@@ -1,21 +1,18 @@
 import { StyleSheet, View, ScrollView, Text, Pressable, Image } from 'react-native'
 import { colors } from '../global/colors'
-import userData from '../data/userData.json'
 import { useSelector, useDispatch } from 'react-redux'
 import { CustomButton } from '../components'
 import { deleteUserSessionDB } from '../db'
 import { clearUserSessionData } from '../features/authSlice'
 import LocationSelector from '../components/LocationSelector'
 
-
 const Account = ({navigation}) => {
 
+    const userEmail = useSelector( state => state.authReducer.userEmail)
     const image = useSelector(state => state.authReducer.profilePicture)
-
     const userAddress = useSelector(state => state.authReducer.userAddress)
-
     const localId = useSelector( state => state.authReducer.localId)
-
+    
     const dispatch = useDispatch()
 
     const onLogoutHandler = () => {
@@ -54,9 +51,7 @@ const Account = ({navigation}) => {
             </View>
 
             <View style={styles.dataContainer}>
-                <Text style={styles.textUserName}>Usuario: {userData.name}</Text>
-                <Text>Tipo de usuario: {userData.role}</Text>
-                <Text>Nivel cuenta: {userData.level}</Text>                
+                <Text style={styles.textUserName}>Usuario: {userEmail}</Text>                
             </View>
 
             {
@@ -67,12 +62,11 @@ const Account = ({navigation}) => {
                 </View>
             }
 
-
             <View>
                 <LocationSelector/> 
             </View>
 
-            <View style={styles.logutContainer}>
+            <View style={styles.logoutContainer}>
                 <CustomButton
                     buttonTitle={'Cerrar sesión'}
                     onPressHandler={()=>onLogoutHandler()}
@@ -126,9 +120,10 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start'
     },
 
-    logutContainer:{
+    logoutContainer:{
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: -110
     },
 
     textUserName:{

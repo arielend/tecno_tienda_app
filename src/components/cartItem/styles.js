@@ -11,10 +11,10 @@ export const styles = StyleSheet.create({
     },
 
     rowSection: {
-        width: '90%',
         flexDirection: "row",
-        justifyContent: 'space-between',
-        alignItems: 'center'       
+        justifyContent: 'space-around',
+        alignItems: 'center', 
+        width: '90%'
     },
 
     separator:{

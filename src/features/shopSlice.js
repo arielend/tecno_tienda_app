@@ -1,18 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit"
-import categoriesData from '../data/tecnotienda_catData.json'
 
 export const shopSlice = createSlice({
     name: "shop",
     initialState:{
-        categories: categoriesData,
+        categories: [],
         products: [],
         productsFilteredByCategory: [],
         productsFilteredBySearch: [],
         categorySelected: "",
         productIdSelected: null,
-        productSelectedById: {}
+        productSelectedById: {},
+        userOrders: []
     },
     reducers:{
+        setCategories: (state, action) => {
+            state.categories = action.payload
+        },
         setCategorySelected: (state, action) => {
             state.categorySelected = action.payload            
         },
@@ -30,16 +33,22 @@ export const shopSlice = createSlice({
         },
         setProductsFilteredBySearch: (state, action) => {
             state.productsFilteredBySearch = productsData.filter(p =>p.name.toLowerCase().includes(action.payload.toLowerCase()))
+        },
+        updateUserOrders: (state, action) => {
+            const ordersUpdated = action.payload
+            state.userOrders = ordersUpdated
         }
     }    
 })
 
 export const {
+    setCategories,
     setProducts,
     setCategorySelected,
     setProductIdSelected,
     setProductSelectedById,
     setProductsFilteredByCategory,
-    setProductsFilteredBySearch } = shopSlice.actions
+    setProductsFilteredBySearch,
+    updateUserOrders } = shopSlice.actions
 
 export default shopSlice.reducer

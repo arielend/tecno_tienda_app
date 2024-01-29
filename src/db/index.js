@@ -24,7 +24,6 @@ export const insertSession = ({userEmail, localId, idToken}) => {
                 'INSERT INTO sessions (email, localId, token ) VALUES(?, ?, ?)',
                 [userEmail, localId, idToken],
                 (tx, results)=> {
-                    console.log("result del insertion", results);
                     resolve(results)
                 },
                 (tx, error) => {
@@ -46,7 +45,6 @@ export const getSession = ({localId}) => {
                 'SELECT * FROM sessions WHERE localId = ?',
                 [localId],
                 (tx, results)=> {
-                    //console.log("Results del select de sesion con ID: ", results);
                     resolve(results)
                 },
                 (tx, error) => {
@@ -68,7 +66,6 @@ export const getSessions = () => {
                 'SELECT * FROM sessions',
                 [],
                 (tx, results)=> {
-                    //console.log("Results del select de sesiones: ", results.rows._array);
                     resolve(results)
                 },
                 (tx, error) => {
@@ -90,7 +87,6 @@ export const deleteSessions = () => {
                 'DELETE FROM sessions',
                 [],
                 (tx, results)=> {
-                    console.log("Results del DELETE de sesiones: ", results.rows._array);
                     resolve(results)
                 },
                 (tx, error) => {
