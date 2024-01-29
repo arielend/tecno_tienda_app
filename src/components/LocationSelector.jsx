@@ -3,11 +3,12 @@ import { useState, useEffect } from 'react'
 import * as Location from 'expo-location'
 import { CustomButton, Skeleton } from '../components'
 import MapPreview from './MapPreview'
-import { map_api_key } from '../cloudService/googleClouds'
 import { setUserAddress } from '../features/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { usePutUserAddressMutation } from '../services/userProfileService'
 import { getDistance } from 'geolib'
+
+const map_api_key = process.env.EXPO_PUBLIC_MAP_API_KEY
 
 const LocationSelector = () => {
 
