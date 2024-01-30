@@ -27,10 +27,10 @@ El proyecto de desarrollo mobile utiliza los servicios de backend provistos por 
 ## Para correr el proyecto localmente
 
 ```
-$ git clone https://github.com/arielend/React-PF-Endrizzi
-$ cd tecno-tienda
+$ git clone https://github.com/arielend/tecno_tienda_app
+$ cd tecno_tienda_app
 $ npm install
-$ npm run dev
+$ npx expo start
 ```
 
 ## Flujo del Sitio
