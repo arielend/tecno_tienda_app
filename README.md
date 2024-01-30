@@ -1,11 +1,11 @@
 ![Banner Tecno Tienda](/assets/img/headerReadme.png)
-# Proyecto ecommerce Tecno Tienda
-## Curso de React
-## _CODERHOUSE - Comisión 58160_
+# Proyecto Tecno Tienda App - e-Commerce
+## Curso Desarrollo de Aplicaciones
+## _CODERHOUSE - Comisión 56680_
 
 
 ## Acerca del proyecto
-Este proyecto consiste en una aplicación web que permite a los usuarios comprar productos de hardware y periféricos para computadoras, tales como tarjetas gráficas, motherboards, procesadores y memorias entre otros. El proyecto aún se encuentra en etapa de desarrollo.
+Este proyecto consiste en una aplicación móvil híbrida del tipo bridge, desarrollada con React Native y Expo CLI. La misma permite a los usuario acceder a una plataforma de e-commerce, visualizar y comprar productos de hardware, periféricos para computadoras y accesorios, tales como tarjetas gráficas, motherboards, procesadores y memorias entre otros. El proyecto aún se encuentra en etapa de desarrollo.
 
 
 ## Tecnologías aplicadas
@@ -14,7 +14,7 @@ Este proyecto fue desarrollado utilizando siguientes tecnologías:
 ![Tecnologías del proyecto](/assets/img/developedReadme.png)
 
 ## Backend as a service
-Siendo un Proyecto de Front-End, el servicio de backend que sustenta el sitio fue integrado con
+El proyecto de desarrollo mobile utiliza los servicios de backend provistos por Google Firebase, integrando las utilidades de Authentication, Storage y Realtimedatabase.
 ![Built with Firebase](/public/images/readme/built-with-firebase.png)
 
 
