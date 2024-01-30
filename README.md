@@ -1,4 +1,4 @@
-![Banner Tecno Tienda](/public/images/readme/banner-readme.png)
+![Banner Tecno Tienda](/assets/img/headerReadme.png)
 # Proyecto ecommerce Tecno Tienda
 ## Curso de React
 ## _CODERHOUSE - Comisión 58160_
