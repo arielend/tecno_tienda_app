@@ -2,10 +2,21 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { colors } from '../global/colors'
 import { CategoryItem } from '../components'
 import { useGetCategoriesQuery } from '../services/shopService'
+import { useDispatch } from 'react-redux'
+import { setCategories } from '../features/shopSlice'
+import { useEffect } from 'react'
 
 const Categories = ({navigation}) => {
 
-    const { data: categories, isLoading, error } = useGetCategoriesQuery()
+    const { data: categories, isLoading: isCategoriesLoading, error: categoriesError } = useGetCategoriesQuery()
+
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        if(categories){
+            dispatch(setCategories(categories))
+        }
+    },[categories])
 
     const renderCategoryItems = ({item}) => (
         <CategoryItem navigation={navigation} {...item}/>        

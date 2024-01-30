@@ -86,11 +86,9 @@ const LocationSelector = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Mi ubicación</Text>
             {
                 location ?
                 <>
-                <Text> Dirección: {address} </Text>
                 <Text> País: {country} </Text>
                 <Text>Provincia: {province} </Text>
                 <Text>Localidad: {locality} </Text>

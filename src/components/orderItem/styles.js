@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
         padding: 10,
         justifyContent: "space-between",
         alignItems: "center",
+        width: 350
     },
 
 	searchIcons: {

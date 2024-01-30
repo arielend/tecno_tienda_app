@@ -49,13 +49,9 @@ export const cartSlice = createSlice({
             const total = itemsUpdated.reduce(
                 (acc, current) => acc += current.price*current.quantity, 0
             )
-            state.totalBudget = total
-            state = {
-                ...state,
-                items: itemsUpdated,
-                totalBudget: total,
-                lastUpdate: Date.now().toLocaleString()
-            }
+            state.totalBudget = total,
+            state.items = itemsUpdated,
+            lastUpdate = Date.now().toLocaleString()            
         },
 
         clearCart: (state) =>{
