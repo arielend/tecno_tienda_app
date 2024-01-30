@@ -3,8 +3,8 @@ import { colors } from "../global/colors"
 import { CartItem, CustomModal } from "../components"
 import { useSelector } from "react-redux"
 import { usePutOrderMutation } from "../services/shopService"
-import { useState } from "react"
-import { clearCart } from "../features/cartSlice"
+import { useEffect, useState } from "react"
+import { clearCart, removeItemFromCart } from "../features/cartSlice"
 import { updateUserOrders } from "../features/shopSlice"
 import { useDispatch } from "react-redux"
 
@@ -13,8 +13,9 @@ const Cart = ({navigation}) => {
 
     const [ modalVisible, setModalVisible ] = useState(false)
     const [ actualDate, setActualDate ] = useState(Date.now())
+    const [ cartItems, setCartItems ] = useState([])
     const localId = useSelector(state => state.authReducer.localId)
-    const cartItems = useSelector(state => state.cartReducer.items)
+    const cartItemsState = useSelector(state => state.cartReducer.items)
     const userOrders = useSelector( state => state.shopReducer.userOrders)
     const totalBudget = useSelector(state => state.cartReducer.totalBudget)
     const [ triggerPutOrder, result] = usePutOrderMutation()
@@ -41,6 +42,12 @@ const Cart = ({navigation}) => {
         let id = string.slice(-8)
         return id
     }
+
+    useEffect(()=> {
+        if(cartItemsState){
+            setCartItems(cartItemsState)
+        }
+    },[cartItemsState])    
     
     const confirmCart = () => {        
         const order = {
@@ -59,10 +66,16 @@ const Cart = ({navigation}) => {
         navigation.navigate("OrdersStack", {Screen: "Orders"})
     }
 
+    const onRemoveItemHandler = (id) => {
+        dispatch(removeItemFromCart(id))
+        const updatedCartItems = cartItems.filter(item => item.id !== id);
+        setCartItems(updatedCartItems)
+    }
+
     const renderCartItems = ({item}) => {
         return(
             <View>
-                <CartItem {...item} navigation={navigation}/>
+                <CartItem {...item} navigation={navigation} onRemoveItem={onRemoveItemHandler}/>
             </View>
         )
     }

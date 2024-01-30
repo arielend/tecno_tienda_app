@@ -9,9 +9,12 @@ const OrderDetail = ({route}) => {
     const renderOrderProducts = ({item}) => (
         <Card>
             <View style={styles.separator}></View>
-            <Text>{item.shortName}</Text>
-            <Text>{item.quantity} u.</Text>
-            <Text>Subtotal $ {item.price * item.quantity}</Text>
+            <Text>Descripción:   {item.shortName}</Text>
+            <View style={styles.rowField}>
+                <Text>Cant.: {item.quantity} u.</Text>
+                <Text>Precio unit.: {item.price}</Text>
+            </View>
+            <Text style={styles.subTotalText}>Subtotal $ {item.price * item.quantity}</Text>
         </Card>
     )
 
@@ -21,8 +24,8 @@ const OrderDetail = ({route}) => {
         
             <Text style={styles.title}>Detalle de mi compra</Text>
             <Card style={styles.card}>
-                <Text>ID: {order.orderId}</Text>
-                <Text>Productos:</Text>
+                <Text>Order ID: {order.orderId}</Text>
+                <Text style={styles.centeredText}>Productos:</Text>
                 <FlatList
                     data={order.orderItems}
                     renderItem={renderOrderProducts}
@@ -30,7 +33,7 @@ const OrderDetail = ({route}) => {
                     style={{height: '75%'}}
                 />                
                 <View style={styles.separator}></View>
-                <Text>Total compra: $ {order.orderTotal}</Text>
+                <Text style={styles.centeredText}>Total compra: $ {order.orderTotal}</Text>
             </Card>
             
         </View>
@@ -51,11 +54,28 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
     },
 
+    rowField:{
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    subTotalText:{
+        alignSelf: 'flex-end',
+        fontWeight: 'bold'
+    },
+
     title:{
         fontSize: 18,
         fontFamily: 'Comfortaa-Bold',
         textAlign: 'center',
         color: colors.ligthBlue,
+    },
+
+    centeredText:{
+        textAlign: 'center',
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: colors.darkBlue
     },
 
     separator:{

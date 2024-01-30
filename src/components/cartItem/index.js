@@ -1,8 +1,10 @@
 import { Text, View, Image, TouchableOpacity } from "react-native"
 import { styles } from './styles'
 import Card from "../card/Card"
+import { useDispatch } from "react-redux";
+import { removeItemFromCart } from "../../features/cartSlice";
 
-const CartItem = ({ shortName, name, thumbnail, price, quantity }) => {
+const CartItem = ({ id, shortName, name, thumbnail, price, quantity, onRemoveItem }) => {
 
     return (
         <Card style={styles.card}>
@@ -10,7 +12,7 @@ const CartItem = ({ shortName, name, thumbnail, price, quantity }) => {
                 <Text style={styles.itemName}>{shortName}</Text>
                 <TouchableOpacity
                     activeOpacity={0.65}
-                    onPress={null}
+                    onPress={()=>onRemoveItem(id)}
                 >
                     <Image
                         style={styles.icons}
