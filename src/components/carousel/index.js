@@ -1,7 +1,6 @@
 import { View, Image } from 'react-native'
 import Swiper from 'react-native-swiper'
 import { styles } from './styles'
-import { colors } from '../../global/colors'
 
 const Carousel = ({images}) => {
 

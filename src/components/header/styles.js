@@ -1,19 +1,6 @@
 import { StyleSheet } from "react-native"
-import { colors } from "../../global/colors"
 
 export const styles = StyleSheet.create({
-    // headerContainer: {
-    //     display: 'flex',
-    //     flexDirection: 'row',
-    //     paddingTop: 45,
-    //     paddingBottom: 15,
-    //     paddingHorizontal: 15,        
-    //     justifyContent: 'space-between',
-    //     alignItems: 'center',
-    //     backgroundColor: colors.ligthGray,
-    //     borderBottomColor: colors.orange,
-    //     borderBottomWidth: 2        
-    // },
 
     headerContainer:{
         height: 90,
@@ -49,6 +36,5 @@ export const styles = StyleSheet.create({
         top: 35,
         right: 20
     }
-
 
 })

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { useState, useEffect } from 'react'
 import * as Location from 'expo-location'
 import { CustomButton, Skeleton } from '../components'
@@ -89,18 +89,17 @@ const LocationSelector = () => {
             {
                 location ?
                 <>
-                <Text> País: {country} </Text>
-                <Text>Provincia: {province} </Text>
-                <Text>Localidad: {locality} </Text>
+                <View style={{alignItems:'flex-start'}}>
+                    <Text> <Text style={styles.textUnderlined}>Provincia</Text>: {province} </Text>
+                    <Text> <Text style={styles.textUnderlined}>País</Text>: {country} </Text>
+                    <Text> <Text style={styles.textUnderlined}>Localidad</Text>: {locality} </Text>
+                </View>
                 <Text>La tienda más cercana esta a {storeDistance} metros </Text>
                 <CustomButton
                     buttonTitle={'Actualizar ubicación'}
                     onPressHandler={onLocationUpdateHandler}
                 />
-                <MapPreview location={location} nearStore={storeLocation}/>
-                <Text>
-                    (Lat: {location.latitude}, Long: {location.longitude})
-                </Text>
+                <MapPreview location={location} nearStore={storeLocation}/>                
                 </> :
                 <Skeleton/>
             }
@@ -119,5 +118,9 @@ const styles = StyleSheet.create({
         paddingBottom: 130,
         gap: 5
     },
+
+    textUnderlined:{
+        textDecorationLine: 'underline'
+    }
 
 })

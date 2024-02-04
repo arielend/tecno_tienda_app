@@ -1,10 +1,10 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { colors } from '../global/colors'
 import { CategoryItem } from '../components'
 import { useGetCategoriesQuery } from '../services/shopService'
-import { useDispatch } from 'react-redux'
 import { setCategories } from '../features/shopSlice'
-import { useEffect } from 'react'
 
 const Categories = ({navigation}) => {
 

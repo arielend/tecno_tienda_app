@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text, FlatList } from "react-native"
-import { colors } from "../global/colors"
-import { OrderItem } from "../components"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+import { colors } from "../global/colors"
+import { OrderItem } from "../components"
 
 const Orders = ({navigation}) => {
 

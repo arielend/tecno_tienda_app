@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
     logoutContainer:{
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: -110
+        marginTop: -110,
+        paddingBottom: 20
     },
 
     textUserName:{

@@ -1,7 +1,11 @@
-import { Image, Pressable, View, TouchableOpacity } from 'react-native'
+import { Image, View, TouchableOpacity } from 'react-native'
 import { styles } from './styles'
+import { useNavigation } from '@react-navigation/native'
 
-const Header = ({ navigation }) => {
+const Header = () => {
+
+    const navigation = useNavigation()
+    
     return (
         <View style={styles.headerContainer}>
 

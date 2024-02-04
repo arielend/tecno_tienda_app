@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, ScrollView, Image, Pressable, Share } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { colors } from "../global/colors";
 import { Skeleton, Carousel, CustomModal } from "../components";
 import Card from "../components/card/Card";
-import { colors } from "../global/colors";
-
-import { useSelector, useDispatch } from "react-redux";
 import { addItemToCart } from "../features/cartSlice";
 import { updateFavorites } from  '../features/authSlice'
-
 import { usePutFavoriteItemsMutation } from '../services/userProfileService'
 
 const ProductDetail = ({ navigation }) => {

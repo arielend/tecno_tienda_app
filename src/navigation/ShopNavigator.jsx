@@ -1,5 +1,4 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { BottomTabBar } from "@react-navigation/bottom-tabs"
  
 import Categories from "../screens/Categories"
 import ProductDetail from "../screens/ProductDetail"
@@ -17,7 +16,7 @@ const ShopNavigator = () => {
                 initialRouteName="categories"
                 screenOptions={
                     ({navigation})=>({
-                        header: () => <Header navigation={navigation}/>
+                        header: () => <Header/>
                     })
                 }
             >                

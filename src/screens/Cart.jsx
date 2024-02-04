@@ -1,13 +1,11 @@
+import { useEffect, useState } from "react"
 import { StyleSheet, FlatList, Text, View, Pressable } from "react-native"
+import { useSelector, useDispatch } from "react-redux"
 import { colors } from "../global/colors"
 import { CartItem, CustomModal } from "../components"
-import { useSelector } from "react-redux"
 import { usePutOrderMutation } from "../services/shopService"
-import { useEffect, useState } from "react"
-import { clearCart, removeItemFromCart } from "../features/cartSlice"
 import { updateUserOrders } from "../features/shopSlice"
-import { useDispatch } from "react-redux"
-
+import { clearCart, removeItemFromCart } from "../features/cartSlice"
 
 const Cart = ({navigation}) => {
 

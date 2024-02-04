@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
-import { Input } from '../components'
+import { Input, CustomModal } from '../components'
 import { colors } from '../global/colors'
 import { useEffect, useState } from 'react'
 import { useLoginMutation } from '../services/authService'
@@ -11,12 +11,36 @@ import { insertSession } from '../db'
 
 const Login = ({navigation}) => {
 
+    const [ modalVisible, setModalVisible ] = useState(false)
     const [ email, setEmail ] = useState('')
+    const [ error, setError ] = useState('')
     const [ password, setPassword] = useState('')
     const [ triggerLogin, result ] = useLoginMutation()
 
-    const onLoginHandler = () => {        
-        triggerLogin({email, password})
+    const onLoginHandler = () => {
+        if(!email || !password){
+            setError("Complete ambos campos para continuar")
+            setModalVisible(!modalVisible)
+        }else{
+            triggerLogin({email, password})
+        }
+    }
+
+    const handleError = (error) => {
+        let err = ''
+        switch(error.message){
+            case 'INVALID_EMAIL':
+                err = "Debe ingresar un email válido"
+                break
+            case 'MISSING_PASSWORD':
+                err = "Contraseña requerida"
+                break
+            case 'INVALID_LOGIN_CREDENTIALS':
+                err = "Revise su usuario y contraseña"
+                break
+        }
+        setError(err)
+        setModalVisible(!modalVisible)
     }
     
     const dispatch = useDispatch()
@@ -30,9 +54,13 @@ const Login = ({navigation}) => {
                 localId: result.data.localId
             })
         }
+        if(result?.error){
+            handleError(result.error.data.error)            
+        }
     }, [result])
 
     return (
+        <>
         <View style={styles.loginContainer}>
 
             <View style={styles.loginForm}>
@@ -71,6 +99,17 @@ const Login = ({navigation}) => {
             </View>
 
         </View>
+        <CustomModal
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            modalTitle={'Algo salió mal'}
+            modalMessage={error}
+            showCancelButton={false}
+            cancelButtonTitle={''}
+            confirmButtonTitle={'Aceptar'}
+            confirmButtonHandler={()=>setModalVisible(!modalVisible)}
+            />
+        </>
     )
 }
 

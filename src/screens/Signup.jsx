@@ -1,13 +1,10 @@
 import { StyleSheet, View, KeyboardAvoidingView, Text, Pressable } from 'react-native'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { colors } from '../global/colors'
 import { Input } from '../components'
-import { useState, useEffect } from 'react'
-
 import { setUserSessionData } from '../features/authSlice'
-import { useDispatch } from 'react-redux'
-
 import { useSignupMutation } from '../services/authService'
-
 import { signupSchema } from '../validations/signupSchema'
 
 const Signup = ({navigation}) => {

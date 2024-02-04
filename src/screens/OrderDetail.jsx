@@ -1,11 +1,11 @@
-import { FlatList, StyleSheet, Text, View, ScrollView, SafeAreaView, VirtualizedList } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { colors } from "../global/colors";
 import Card from "../components/card/Card";
 
 const OrderDetail = ({route}) => {
 
     const order = route.params
-
+    
     const renderOrderProducts = ({item}) => (
         <Card>
             <View style={styles.separator}></View>
@@ -25,12 +25,13 @@ const OrderDetail = ({route}) => {
             <Text style={styles.title}>Detalle de mi compra</Text>
             <Card style={styles.card}>
                 <Text>Order ID: {order.orderId}</Text>
+                <Text>Fecha: {order.orderDate}</Text>
                 <Text style={styles.centeredText}>Productos:</Text>
                 <FlatList
                     data={order.orderItems}
                     renderItem={renderOrderProducts}
                     keyExtractor={item=>item.id}
-                    style={{height: '75%'}}
+                    style={{height: '70%'}}
                 />                
                 <View style={styles.separator}></View>
                 <Text style={styles.centeredText}>Total compra: $ {order.orderTotal}</Text>
