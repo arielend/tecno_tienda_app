@@ -69,8 +69,8 @@ $ cd tecno_tienda_app
 $ npm install
 $ npx expo start
 
-<!-- NOTA: EN CASO DE INCOPATIBILIDAD DE LAS LIBRERÍAS CON LA VERSION DE EXPO EJECUTAR EL COMANDO -->
-$ npm install --fix
+<!-- NOTA: EN CASO DE INCOMPATIBILIDAD DE LAS LIBRERÍAS CON LA VERSION DE EXPO EJECUTAR EL COMANDO -->
+$ npm expo install --fix
 ```
 
 ![Banner App Flow](/assets/img/flowReadme.png)
