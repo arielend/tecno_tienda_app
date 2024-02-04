@@ -1,8 +1,6 @@
-import { Text, View, Image, TouchableOpacity } from "react-native"
+import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { styles } from './styles'
-import Card from "../card/Card"
-import { useDispatch } from "react-redux";
-import { removeItemFromCart } from "../../features/cartSlice";
+import Card from '../card/Card'
 
 const CartItem = ({ id, shortName, name, thumbnail, price, quantity, onRemoveItem }) => {
 
@@ -46,7 +44,7 @@ const CartItem = ({ id, shortName, name, thumbnail, price, quantity, onRemoveIte
                 <Text style={styles.subtotal}>Subtotal: $ {price * quantity}</Text>
             </View>
         </Card>
-    );
-};
+    )
+}
 
 export default CartItem

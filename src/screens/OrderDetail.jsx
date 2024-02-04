@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View, ScrollView, SafeAreaView, VirtualizedList } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { colors } from "../global/colors";
 import Card from "../components/card/Card";
 

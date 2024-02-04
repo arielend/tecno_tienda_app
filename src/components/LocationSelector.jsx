@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { useState, useEffect } from 'react'
 import * as Location from 'expo-location'
 import { CustomButton, Skeleton } from '../components'

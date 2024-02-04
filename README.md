@@ -1,5 +1,5 @@
 ![Banner Tecno Tienda](/assets/img/headerReadme.png)
-# Proyecto Tecno Tienda App - e-Commerce
+# <p style="text-align: center;"> Proyecto Tecno Tienda App - e-Commerce </p>
 ## Curso Desarrollo de Aplicaciones
 ## _CODERHOUSE - Comisión 56680_
 
@@ -9,34 +9,50 @@ Este proyecto consiste en una aplicación móvil híbrida del tipo bridge, desar
 
 
 ## Tecnologías aplicadas
-Este proyecto fue desarrollado utilizando siguientes tecnologías:
-
+Este proyecto fue desarrollado utilizando las siguientes tecnologías:
 ![Tecnologías del proyecto](/assets/img/developedReadme.png)
 
-### Librerías de EXPO
-## Location
-## SQLite
-
-
-### Otras librerías
-## React-Native-Swiper
-## Geolib
 
 ### React Redux
+La elección de React Redux se fundamenta en la necesidad de gestionar de manera eficiente el estado de la aplicación Tecno Tienda App, proporcionando un almacenamiento centralizado para el estado global, facilitando la manipulación y actualización coherente de los datos en toda la aplicación. Funciones como por ejemplo el Carrito de Compras, fueron desarrolladas manejando el estado de manera local con React Redux. Su uso fue elegido sobre otras herramientas para manejo de estados como React Context con el objeto de familiarizarme con su manejo.
+
+
+### React Redux Toolkit
+React Redux Toolkit se incorporó como una extensión natural de React Redux. La idea de su implementación es la de proporcionar al desarrollo una capa adicional de abstracción para la gestión del estado, simplificando la configuración y reduciendo la cantidad de código repetido. Su inclusión facilitó la implementación de acciones, reducers y stores de una manera más eficiente y estructurada, mejorando la mantenibilidad y legibilidad del código relacionado con el estado de la aplicación. 
+
 
 ### React Navigation
+React Navigation fue seleccionado para gestionar la navegación dentro de la aplicación, proporcionando una  solución robusta y personalizable para la navegación entre los stacks de navegación y las diferentes pantallas que se presentan en la App de Tecno Tiendacon que, siendo esto esencial para crear una experiencia de usuario fluida y coherente.
 
-### Firebase
+La navegación de la App de Tecno Tienda se ha estructurado en dos niveles principales: Stack Navigators y Bottom Tab Navigators.
 
-### Google Cloud - API'S
-## Maps Static
-## Geocoding
+#### Stack Navigators
+Se ha implementado la navegación mediante Stack Navigators para representar las diferentes secciones principales de la aplicación. Cada sección, como Shop ( Compras ), Cart ( Carrito ), Orders ( Órdenes ) y Account ( Perfil de Usuario ), se ha modelado como un stack independiente. Esto permite la navegación entre las distintas pantallas dentro de cada sección de manera intuitiva, manteniendo un historial de navegación específico para cada contexto.
+
+#### Bottom Tab Navigators
+Para facilitar la navegación entre las secciones principales de la aplicación, se ha incorporado un Bottom Tab Navigator. Cada pestaña del Bottom Tab corresponde a una sección específica. Esto proporciona un acceso rápido y directo a las funcionalidades clave de la aplicación desde cualquier pantalla.
 
 
+### Location y SQLite de Expo. Paquete Geolib de NPM. API Geocoding y Maps Static de Google
+La integración de Location de Expo se realiza para acceder y aprovechar las capacidades de geolocalización del dispositivo móvil en la aplicación. Esta herramienta fue crucial para, junto a las API Geocoding y Maps Static der Google, implementar funciones como la ubicación del usuario y la identificación en del local de Tecno Tienda más cercano a su posición.
 
-## Backend as a service
-El proyecto de desarrollo mobile utiliza los servicios de backend provistos por Google Firebase, integrando las utilidades de Authentication, Storage y Realtimedatabase.
-![Built with Firebase](/public/images/readme/built-with-firebase.png)
+La librería Geolib ha permitido realizar los cálculos geoespaciales, como la distancia entre dos puntos, para exhibir la información referente a distancias, como la búsqueda de tiendas cercanas.
+
+La integración de las API de Geocoding y Maps Static de Google permiten la visualización de mapas estáticos y la obtención de datos geográficos precisos. De esta manera le permiten al usuario de la App de Tecno Tienda visualizar en la misma applicación el mapa que muestra su ubicación y la distancia a la Tienda más cercana. (*) Nota: al momento la aplicación muestra la distancia a una única tienda cargada en directamente en el código de la aplicación, pero estas herramientas pérmitiran con algunas de sus herramientas la lectura de datos de geolocalización de todas las tiendas y mostrar en el mapa una o más tienda cercanas calculadas desde la app.
+
+Todas las herramientas vinculadas al acceso a los datos de ubicación del dispositivo, su calculo y presentación fueron trabajadas de manera intregrada.
+
+La incorporación de SQLite de Expo tuvo como objetivo aprovechar el acceso al almacenamiento local y gestionar las sesiones de usuario en el mismo dispositivo.
+
+
+### React Native Swiper
+React Native Swiper se incorporó para crear una experiencia de navegación atractiva y centrada en el usuario en la sección de detalles del producto. Este componente permite la creación de carruseles de manera sencilla y eficaz.
+
+
+### Authentication y Real Time Database de Firebase
+La elección de utilizar las funcionalidades de Authentication y Real Time Database de Firebase ofrece una solución segura y eficiente para gestionar la autenticación de usuarios y almacenar datos en tiempo real. Esto es esencial para implementar un sistema de usuarios, carritos de compra y otras características interactivas en en la App de Tecno Tienda.
+
+Todas las elecciones fueron realizadas con el objetivo de optimizar el desarrollo, mejorar la experiencia del usuario y garantizar la seguridad y eficiencia en la gestión de datos en la aplicación de Tecno Tienda.
 
 
 ## Enlaces a mis redes sociales
@@ -52,6 +68,9 @@ $ git clone https://github.com/arielend/tecno_tienda_app
 $ cd tecno_tienda_app
 $ npm install
 $ npx expo start
+
+<!-- NOTA: EN CASO DE INCOPATIBILIDAD DE LAS LIBRERÍAS CON LA VERSION DE EXPO EJECUTAR EL COMANDO -->
+$ npm install --fix
 ```
 
 ![Banner App Flow](/assets/img/flowReadme.png)

@@ -10,7 +10,7 @@ const CartNavigator = ({navigation}) => {
             initialRouteName="Cart"
             screenOptions={
                 ({navigation})=>({
-                    header: () => <Header navigation={navigation}/>
+                    header: () => <Header/>
                 })
             }
         >

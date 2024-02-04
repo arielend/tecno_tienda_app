@@ -11,7 +11,7 @@ const AccountNavigator = () => {
             initialRouteName="account"
             screenOptions={
                 ({navigation})=>({
-                    header: () => <Header navigation={navigation}/>
+                    header: () => <Header/>
                 })
             }
         >

@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { StyleSheet, Text, Image, View, Pressable } from 'react-native'
+import { StyleSheet, Text, Image, View } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import { colors } from '../global/colors'
 import { CustomButton } from '../components'
 import { setProfilePicture } from '../features/authSlice'
-import { useSelector, useDispatch } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
 import { usePutProfilePictureMutation } from '../services/userProfileService'
 
@@ -69,7 +69,8 @@ const ImageSelector = ({navigation}) => {
                             buttonTitle={'Tomar otra'}
                             onPressHandler={onTakePhotoHandler}
                         />
-                        {/* Validamos que haya una foto en el estado para confirmar, si no se podría guardar una cadena vacía en lugar de una imagen */}
+                        {/* Validamos que haya una foto en el estado para confirmar, 
+                        si no se podría guardar una cadena vacía en lugar de una imagen */}
                         {
                             (!image && profilePicture) ? 
                             <CustomButton
@@ -142,6 +143,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         columnGap: 20
     }
-
 
 })

@@ -7,9 +7,8 @@ import TabNavigator from './TabNavigator'
 
 import { useGetProductsQuery, useGetUserOrdersQuery } from '../services/shopService'
 import { useGetProfilePictureQuery, useGetFavoriteItemsQuery, useGetUserAddressQuery } from '../services/userProfileService'
-
-import { setProfilePicture, updateFavorites, setUserSessionData, setUserAddress } from '../features/authSlice'
 import { setProducts, updateUserOrders } from '../features/shopSlice'
+import { setProfilePicture, updateFavorites, setUserSessionData, setUserAddress } from '../features/authSlice'
 
 import { getSessions } from '../db'
 
@@ -47,37 +46,25 @@ const MainNavigator = () => {
     },[])
 
     useEffect(()=>{
+        
         if(data){
             dispatch(setProfilePicture(data.image))
         }
         if(userAddressData){
             dispatch(setUserAddress(userAddressData))
         }
-
-    }, [data, userAddressData])
-
-    useEffect(()=>{
         if(products){
             dispatch(setProducts(products))
         }
-
-    }, [products])
-
-    useEffect(()=>{
         if(favorites){
             dispatch(updateFavorites(favorites))
-        } else{
-            dispatch(updateFavorites([]))
         }
-    }, [favorites])
-
-    useEffect(()=>{
         if(userOrders){
             dispatch(updateUserOrders(userOrders))
         }
 
-    },[userOrders])
-    
+    }, [data, userAddressData, products, favorites, userOrders])
+
     return(
 
         <NavigationContainer>

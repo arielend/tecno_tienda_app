@@ -10,7 +10,7 @@ const OrdersNavigator = () => {
         <Stack.Navigator
             initialRouteName="Orders"
             screenOptions={({ navigation }) => ({
-                header: () => <Header navigation={navigation} />,
+                header: () => <Header/>,
             })}>
                 
                 <Stack.Screen 
